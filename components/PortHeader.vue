@@ -1,7 +1,10 @@
 <template>
-    <div>
+    <header>
         <!-- <span v-for="(link, index) in links" :key="index">{{ link }}</span> -->
-    </div>
+       <div>
+          <span><img src="" alt="My Logo" /></span>
+       </div> 
+    </header>
 </template>
 
 <script setup lang="ts">
