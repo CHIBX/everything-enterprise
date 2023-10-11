@@ -13,14 +13,14 @@ useHead({
 
 <template>
     <div class="background">
-      <img class="background-img" src="/background-small.jpg" alt="Furniture Picture" />
+      <img class="background-img" src="/background.jpg" alt="Furniture Picture" />
        <!-- Discover the Perfect Blend of Style and Comfort at Everything Enterprise -->
        <!-- Transform Your Home with Timeless Elegance and Unmatched Comfort -->
        <!-- Experience the Art of Crafting Beautiful Furniture for Generations -->
        <!-- Indulge in the Finest Furniture Creations for a Lifetime of Luxury -->
       <h2>Discover the Perfect Harmony of Style, Functionality, and Durability</h2>
     </div>
-    <h3 class="service-head">Services We Offer</h3>
+    <h2 class="service-head">Services We Offer</h2>
     <div class="services">
       <div class="service">
         <img src="/background2-small.jpg" alt="Toilet Furniture" title="Toilet Furniture" />
@@ -70,6 +70,10 @@ useHead({
     grid-gap: 15px;
     grid-auto-flow: row;
     margin: 10px 7px 0;
+  }
+  .service-head{
+    text-align: center;
+    margin: 20px 0;
   }
   .service{
     display: flex;
