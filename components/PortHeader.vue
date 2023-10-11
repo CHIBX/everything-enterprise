@@ -20,6 +20,11 @@ useFavicon(__publicAssetsURL('/Logo.jpg'));
 header{
     min-height: 80px;
     box-shadow:  0 8px 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
 }
 .my-logo{
     margin-top: 5px; 
