@@ -1,10 +1,10 @@
 import { fileURLToPath} from 'node:url'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: true,
+  devtools: false,
   router: {
     options:{
-      scrollBehaviorType: "smooth"
+      scrollBehaviorType: "smooth",
     }
   },
   alias:{
@@ -18,23 +18,16 @@ export default defineNuxtConfig({
     '@nuxt/image-edge',
     "@formkit/auto-animate/nuxt"
   ],
+  imports: {
+    dirs: ['./composables/**', './utils/**']
+  },
   routeRules: {},
   nitro: {
     compressPublicAssets: {
       brotli: true
     }
   },
-  experimental: {
-    clientFallback: true,
-    polyfillVueUseHead: true, /*This is just to see the difference in speed, performance and browser compatibility... */
-  },
   app:{
-    pageTransition: {
-      mode: 'out-in',
-      appear: true,
-      duration: 300,
-      type: "transition",
-    },
     head: {
       link: [
         {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
