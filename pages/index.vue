@@ -13,7 +13,32 @@ useHead({
   }
 });
 
+onMounted(()=>{
+  // let { stop } =
+  // useIntersectionObserver(Array.from(document.querySelectorAll('.service')) as any, ([{ isIntersecting, target }]) => {
+  //   if(isIntersecting){
+  //      console.log(target);
+  //      target.classList.remove('service-shown');
+       
+  //   }
+  //   if(stop && !document.querySelectorAll('.service-shown').length){
+  //     stop();
+  //   }
+  // });
 
+  const { stop, remove } = useObserver(Array.from(document.querySelectorAll('.service')), (entries)=>{
+       entries.forEach(({ target, isIntersecting })=>{
+         if(isIntersecting){
+           console.log(target);
+           target.classList.remove('service-shown');
+           remove(target);
+          }
+          if(stop && !document.querySelectorAll('.service-shown').length){
+             stop();
+          }
+       })
+  })
+})
 </script>
 
 <template>
@@ -33,23 +58,23 @@ useHead({
   </div>
   <div class="qualities">
     <div class="sub-qualities">
-      <img :src="designer" alt="" />
+      <img :src="designer" alt="Creative Designers" draggable="false" />
       <p><strong>Creative Designers</strong></p>
     </div>
     <div class="sub-qualities">
-      <img :src="quality" alt="" />
+      <img :src="quality" alt="Quality Products" draggable="false" />
       <p><strong>Quality Products</strong></p>
     </div>
     <div class="sub-qualities">
-      <img :src="quick_response" alt="" />
+      <img :src="quick_response" alt="Quick Response" draggable="false" />
       <p><strong>Quick Response</strong></p>
     </div>
   </div>
-  <h2 class="service-head"><span class="service-head-text">What We Specialize In</span></h2>
+  <h2 class="service-head"><span>What We Specialize In</span></h2>
   <div class="services">
-    <div class="service">
+    <div class="service service-shown" style="--dif: 3">
       <img src="/armchair-pillow.jpg" alt="Chair with Beautiful Luxury Pillow"
-        title="Chair with Beautiful Luxury Pillow" />
+        title="Chair with Beautiful Luxury Pillow" draggable="false" />
       <div class="service-body">
         <strong>We do chairs</strong>
         <p>We craft beautiful and functional chairs for your home or office, using only the finest materials and
@@ -57,28 +82,26 @@ useHead({
           years to come. </p>
       </div>
     </div>
-    <div class="service">
-      <img src="/empty-wooden-shelves.jpg" alt="Empty Wooden Shelves" title="Empty Wooden Shelves" />
+    <div class="service service-shown" style="--dif: 4">
+      <img src="/empty-wooden-shelves.jpg" alt="Empty Wooden Shelves" title="Empty Wooden Shelves" draggable="false" />
       <div class="service-body">
         <strong>We do shelves</strong>
         <p>Our shelves are handcrafted from the finest wood, using traditional carpentry techniques. Each shelf is a
           unique work of art that will add beauty and functionality to your home.</p>
       </div>
     </div>
-    <div class="service">
+    <div class="service service-shown" style="--dif: 5">
       <img src="/classic-bedroom-hotel-room-with-doubles-bed.jpg" alt="Classic Room with Doubles Bed"
-        title="Classic Room with Doubles Bed" />
+        title="Classic Room with Doubles Bed" draggable="false" />
       <div class="service-body">
         <strong>We do beds</strong>
         <p>Our beds are made from the highest quality materials and craftsmanship, and we are committed to providing our
           customers with the best possible experience.
-          <!-- We offer a wide range of customization options, so you can create a
-          bed that is truly unique to your style and needs. -->
         </p>
       </div>
     </div>
-    <div class="service">
-      <img src="/cupboard.jpg" alt="Wooden Cupboard" title="Wooden Cupboard" />
+    <div class="service service-shown" style="--dif: 6">
+      <img src="/cupboard.jpg" alt="Wooden Cupboard" title="Wooden Cupboard" draggable="false" />
       <div class="service-body">
         <strong>We do cupboards</strong>
         <p>We design and build custom cupboards to fit your needs, whether you're looking for a new kitchen, bathroom, or
@@ -134,9 +157,10 @@ div.background h1 {
 }
 
 .services {
+  position: relative;
   display: grid;
   grid-auto-flow: row;
-  grid-template-columns: repeat(auto-fit, minmax(300px, .5fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.68fr));
   place-content: center;
   grid-gap: 20px;
   margin: 10px 20px 0;
@@ -147,22 +171,21 @@ div.background h1 {
   margin: 20px 0;
 }
 
-/* .service-head-tex {
+/* .service-head-text {
   
 } */
-
-.line-under::before {
-  content: '';
-  background-color: black;
-  height: 5px;
-  width: calc(100% * var(--length));
-}
 
 .service {
   display: flex;
   flex-direction: column;
-  transition: 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  transition: 0.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.3s cubic-bezier(0.77, 0, 0.175, 1) calc(0.1s * var(--dif));
   border-radius: 3px;
+  /* transition-delay: calc(0.1s * var(--dif)); */
+}
+
+.service-shown {
+  opacity: 0;
+  transform: translateY(200px);
 }
 
 .service:hover {
@@ -182,8 +205,8 @@ div.background h1 {
 .service img {
   min-width: 220px;
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: 250px;
+  user-select: none;
 }
 
 .qualities {
@@ -204,11 +227,21 @@ div.background h1 {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  user-select: none;
 }
 
-@media (max-width: 676px) {
-  .services {
-    grid-template-columns: repeat(1, minmax(280px, 80%));
-  }
+@media (max-width: 500px) {
+   .qualities{
+      flex-wrap: wrap;
+      row-gap: 15px;
+   }
+   .sub-qualities{
+       flex-basis: 50%;
+   }
+   .sub-qualities:nth-child(2) {
+       order: -1;
+       flex-basis: 100%;
+   }
+
 }
 </style>
