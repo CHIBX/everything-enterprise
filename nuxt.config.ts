@@ -1,22 +1,23 @@
-import { fileURLToPath} from 'node:url'
+import { fileURLToPath } from 'node:url'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: false,
   router: {
-    options:{
+    options: {
       scrollBehaviorType: "smooth",
     }
   },
-  alias:{
+  alias: {
     'styles': fileURLToPath(new URL('./assets/styles', import.meta.url))
   },
-  image:{
+  image: {
     provider: 'ipx',
   },
   modules: [
     '@vueuse/nuxt',
     '@nuxt/image-edge',
-    "@formkit/auto-animate/nuxt"
+    "@formkit/auto-animate/nuxt",
+    "@nuxtjs/robots"
   ],
   imports: {
     dirs: ['./composables/**', './utils/**']
@@ -27,20 +28,20 @@ export default defineNuxtConfig({
       brotli: true
     }
   },
-  app:{
+  app: {
     head: {
       link: [
-        {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
-        {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'},
-        {rel: 'shortcut icon', href: '~/assets/images/favicon.ico', type: "image/x-icon"}
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
+        { rel: 'shortcut icon', href: '~/assets/images/favicon.ico', type: "image/x-icon" }
       ],
       meta: [
-        {charset: 'utf-8'},
-        {name: 'viewport', content: 'width=device-width, initial-scale=1.0',} 
-     ],
-     noscript: [
-      {textContent: 'JavaScript is required to use this page!', tagPosition: 'bodyOpen', tagPriority: 1}
-     ]
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1.0', }
+      ],
+      noscript: [
+        { textContent: 'JavaScript is required to use this page!', tagPosition: 'bodyOpen', tagPriority: 1 }
+      ]
     }
   }
 })

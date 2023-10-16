@@ -4,9 +4,13 @@
 
 <template>
         <PortHeader />
-        <slot />
+        <main>
+                <slot />
+        </main>
 </template>
 
 <style scoped>
-
+main{
+    margin-bottom: 20px;
+}
 </style>
