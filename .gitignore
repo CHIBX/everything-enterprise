@@ -25,6 +25,9 @@ node_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+# VsCode Config
+.vscode
+
 # Optional npm cache directory
 .npm
 
