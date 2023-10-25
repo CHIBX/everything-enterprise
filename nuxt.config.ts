@@ -25,8 +25,11 @@ export default defineNuxtConfig({
   routeRules: {},
   nitro: {
     compressPublicAssets: {
-      brotli: true
+      gzip: true
     }
+  },
+  experimental: {
+    componentIslands: true
   },
   app: {
     head: {
