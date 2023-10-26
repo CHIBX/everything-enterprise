@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: false,
+  devtools: {enabled: false},
   router: {
     options: {
       scrollBehaviorType: "smooth",
@@ -35,8 +35,7 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
-        { rel: 'shortcut icon', href: '~/assets/images/favicon.ico', type: "image/x-icon" }
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' }
       ],
       meta: [
         { charset: 'utf-8' },

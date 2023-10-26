@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import 'vue3-carousel/dist/carousel.css';
+import 'vue3-carousel/dist/carousel.css?inline';
 import { Carousel, Slide } from 'vue3-carousel';
 const publicAssetURL = (path: string) => __publicAssetsURL(path);
 </script>
 
 <template>
-    <Carousel :autoplay="7500" :wrap-around="true" :transition="750">
+    <Carousel :autoplay="7500" :wrap-around="true" :transition="500">
     <slide :index="0">
         <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/background.jpg')})` }">
         <div>
             <h2>Welcome to Everything Enterprise</h2>
-            <p>Everything Enterprise is your one-stop shop for all things carpentry and interior design. We offer a widerange of products, from handcrafted furniture to custom-made cabinetry. Whether you're looking to update your kitchen, remodel your bathroom, or simply add a touch of style to your home, we have everything you need.</p>
+            <p>Everything Enterprise is your one-stop shop for all things carpentry and interior design. We offer a widerange of products, from handcrafted furniture to custom-made cabinetry.</p>
         </div>
     </div>
     </slide>
@@ -77,12 +77,9 @@ div.background h1 {
     height: 100%;
     z-index: -2;
 }
-</style>
-
-<!-- <style>
-.carousel__next, .carousel__prev{
-  border-radius: 50%;
-  padding: 5px;
-  background-color: white;
+@media (max-width: 400px){
+    .background p{
+       font-size: 14px;   
+    }
 }
-</style> -->
+</style>

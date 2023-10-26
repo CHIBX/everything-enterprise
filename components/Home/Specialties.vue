@@ -2,8 +2,8 @@
 </script>
 
 <template>
-    <h2 class="service-head"><span>What We Specialize In</span></h2>
-    <div class="services">
+    <h2 v-pre class="service-head"><span>What We Specialize In</span></h2>
+    <div v-pre class="services">
         <div class="service service-shown" style="--dif: 3">
             <img src="/armchair-pillow.jpg" alt="Chair with Beautiful Luxury Pillow" title="Chair with Beautiful Luxury Pillow"
             draggable="false" />

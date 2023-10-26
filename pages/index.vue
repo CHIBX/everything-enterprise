@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import useLazy from '~/composables/useLazy';
 
-let href = ref<string>();
+const href = ref<string>(), link=ref<string>();
 useHead({
   link: [
     { rel: 'stylesheet', href },
+    { rel:'stylesheet', href: link}
   ],
   title: 'Everything Enterprise',
 });
@@ -40,7 +41,7 @@ onMounted(()=>{
           }
        })
     })
-  useLazy(href, 'https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap', 2000);
+  useLazy(href, 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 })
 </script>
 
@@ -48,17 +49,135 @@ onMounted(()=>{
   <div class="fore-face">
      <HomeFrontFace />
   </div>
-  <div class="reasons-container">
-      <div>
-         
+  <div class="features-wrapper" v-pre>
+    <div class="container">
+        <div class="col-sm-4">
+          <div class="featured-icon-box text-center">
+            <div class="featured-icon"> <i class="material-symbols-outlined">search</i> </div>
+              <div class="featured-title">
+                <h3>Who we are</h3>
+              </div>
+              <div class="featured-desc">
+                <p>Lorem ipsum dolor sit amet consect adipisi elit sed do eiusm tempor</p>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="featured-icon-box text-center">
+            <div class="featured-icon"> <i class="material-symbols-outlined">construction</i> </div>
+              <div class="featured-title">
+                <h3>What we do</h3>
+              </div>
+              <div class="featured-desc">
+                <p>Lorem ipsum dolor sit amet consect adipisi elit sed do eiusm tempor</p>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="featured-icon-box text-center">
+            <div class="featured-icon"> <i class="material-symbols-outlined">verified</i> </div>
+              <div class="featured-title">
+                <h3>Why Choose Us?</h3>
+              </div>
+              <div class="featured-desc">
+                <p>Lorem ipsum dolor sit amet consect adipisi elit sed do eiusm tempor</p> </div>
+            </div>
+        </div>
       </div>
-      <div></div>
-      <div></div>
   </div>
   <HomeQualities />
   <HomeSpecialties />
 </template>
 
 <style scoped>
-
+.features-wrapper{
+  position: relative;
+  min-height: 300px;
+  margin-bottom: 20px;
+}
+.features-wrapper .container{
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(255, 245, 245);
+    margin: 0 auto;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    min-width: 750px;
+}
+.col-sm-4 .featured-desc {
+  color: #838383;
+  font-size: 15px;
+  padding: 0 5px;
+}
+.features-wrapper .col-sm-4{
+    background-color: white;
+    height: 100%;
+    text-align: center;
+}
+.col-sm-4 .featured-icon-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  height: 100%;
+}
+.featured-icon {
+  position: relative;
+  padding: 10px;
+  background-color: #ca7300;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.featured-icon::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0;
+  transition: all 0.3s ease-in;
+}
+.featured-icon i{
+  position: relative;
+  z-index: 2;
+  font-size: 60px;
+  transition: all 0.3s ease;
+}
+.col-sm-4:hover .featured-icon::before {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.col-sm-4:hover i{
+   color: #ca7300;
+}
+@media (max-width: 786px){
+  .features-wrapper .container{
+    position: static;
+    transform: none;
+    max-width: 500px;
+    min-width: 300px;
+    box-shadow: none;
+    flex-wrap: wrap;
+}
+.features-wrapper .col-sm-4{
+  padding: 30px 15px 20px;
+}
+}
 </style>

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 function closeCookie(){
-   let cookieConsent = document.querySelector('.cookie-query')! as HTMLElement;
-   let date = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-   let cookie = useCookie('cookieConsent', {default: ()=>'Thank you for visiting our website', expires: date, maxAge: date.valueOf()});
-   console.log(date, date.valueOf());
+   let cookieConsent = document.querySelector('.cookie-query') as HTMLElement;
+   if(!cookieConsent) return;
    cookieConsent.classList.add('disappear');
    cookieConsent.addEventListener('transitionend', function(){this.remove()})
+}
+function acceptCookie(){
+    let date = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+    useCookie('cookieConsent', {default: ()=>'Thank you for visiting our website', expires: date, maxAge: date.valueOf()});
 }
 </script>
 
@@ -13,8 +15,8 @@ function closeCookie(){
     <div class="cookie-query">
     <span>This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to the use of cookies.</span>
     <div style="display: flex;gap: 20px;justify-content: center;margin-top: 5px;">
-        <button @click="closeCookie">Yes, I Agree</button>
-        <button @click="closeCookie">No, I Don&apos;t</button>
+        <button @click="()=>{closeCookie();acceptCookie()}">Agree To All</button>
+        <button @click="closeCookie">Only Necessary</button>
     </div>
     </div>
 </template>
@@ -34,10 +36,10 @@ function closeCookie(){
 }
 .cookie-query button{
     padding: 10px;
-    background-color: #b86800;
-    color: white;
-    border-color: #b66700;
-    font-weight: 700;
+    background-color: #b46600;
+    color: #ffffff;
+    border-color: #995700; 
+    font-weight: 600;
     cursor: pointer;
 }
 .disappear{
