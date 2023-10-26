@@ -1,4 +1,5 @@
 <script setup lang="ts">
+interface ServerError { url: string; statusCode: number; statusMessage: string; message: string; description: string; data?: any; }
 useHead({
   link: [
     { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap' },
@@ -7,7 +8,7 @@ useHead({
     lang: 'en'
   }
 });
-const error = useError() as unknown as { url: string; statusCode: number; statusMessage: string; message: string; description: string; data?: any; };
+const error = useError() as unknown as ServerError;
 </script>
 
 <template>
