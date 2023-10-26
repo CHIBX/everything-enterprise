@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { NuxtError } from 'nuxt/dist/app/composables';
 useHead({
   link: [
     { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap' },
@@ -8,14 +7,14 @@ useHead({
     lang: 'en'
   }
 });
-const error = useError() as any as NuxtError;
+const error = useError() as unknown as { url: string; statusCode: number; statusMessage: string; message: string; description: string; data?: any; };
 </script>
 
 <template>
     <PortHeader />
     <main>
         <h1 class="at-404">{{ error.statusCode }}</h1>
-        <h1 v-if="error.statusCode === 404">Page not found</h1>
+        <h1 v-if="error!.statusCode === 404">Page not found</h1>
         <h1 v-else-if="error.statusCode === 403">Forbidden</h1>
         <h1 v-else-if="error.statusCode === 500">Internal Server Error</h1>
         <button class="go-back" @click="navigateTo('/')">Take Me Home</button>
