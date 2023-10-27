@@ -1,17 +1,20 @@
 <script setup lang="ts">
-function openNav(){
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+function openNav() {
     const nav = document.querySelector('header .link-holder-parent'),
-    modalFNav=document.querySelector('header .modal-nav');
-    if(!nav || !modalFNav) return;
+        modalFNav = document.querySelector('header .modal-nav');
+    if (!nav || !modalFNav) return;
     modalFNav.classList.add('dark-op');
     nav.classList.add('nav-open');
 }
-function closeNav(){
+function closeNav() {
     const nav = document.querySelector('header .link-holder-parent'),
-    modalFNav=document.querySelector('header .modal-nav');
-    if(!nav || !modalFNav) return;
-    modalFNav.classList.remove('dark-op');
+        modalFNav = document.querySelector('header .modal-nav');
+    if (!nav || !modalFNav) return;
     nav.classList.remove('nav-open');
+    let EvSignal = new AbortController();
+    nav.addEventListener('transitionend', () => { modalFNav.classList.remove('dark-op'); EvSignal.abort(); EvSignal = undefined as any }, { signal: EvSignal.signal });
+    useRouter().beforeEach(() => { EvSignal.abort(); EvSignal = undefined as any });
 }
 </script>
 
@@ -20,17 +23,22 @@ function closeNav(){
         <div class="flex">
             <span class="logo-holder"><img src="/Logo.jpg" alt="My Logo" class="my-logo" draggable="false" /></span>
             <div class="modal-nav">
-               <div class="link-holder-parent">
-                <i class="material-symbols-outlined close" @click="closeNav">close</i>
+                <div class="link-holder-parent">
+                    <span class="material-symbols-outlined close" @click="closeNav"><ClientOnly>
+                    <FontAwesomeIcon :icon="['fas', 'xmark']" size="2x" />
+            </ClientOnly></span>
                     <div class="link-holder">
-                    <span v-for="([name, link]) in [['Home', '/'], ['Services', '/services'], ['Contact Us', '/contact'], ['Gallery', '/gallery']]">
-                        <NuxtLink :to="link" exact-active-class="header-link-active">{{ name }}</NuxtLink>
-                    </span>
+                        <span
+                            v-for="([name, link]) in [['Home', '/'], ['Services', '/services'], ['Contact Us', '/contact'], ['Gallery', '/gallery']]">
+                            <NuxtLink :to="link" exact-active-class="header-link-active">{{ name }}</NuxtLink>
+                        </span>
+                    </div>
                 </div>
-               </div>
             </div>
             <button @click="openNav" class="mobile-menu material-symbols-outlined">
-                menu
+            <ClientOnly>
+                    <FontAwesomeIcon :icon="['fas', 'bars']" size="1x" />
+            </ClientOnly>
             </button>
         </div>
     </header>
@@ -50,21 +58,35 @@ header {
 .my-logo {
     margin-top: 5px;
 }
+
 .link-holder span {
     flex: 0 0 auto;
 }
+
 .link-holder-parent {
     flex-basis: 100%;
     transition: 0.3s ease-in;
 }
+
 .link-holder {
     padding: 0 10px;
     display: flex;
     justify-content: flex-end;
     gap: 25px;
 }
-.close{display: none; float: right; margin: 15px 15px 0 0;cursor: pointer;}
-.close:hover{color: #ff1c1c}
+
+.close {
+    display: none;
+    float: right;
+    margin: 15px 15px 0 0;
+    transition: none;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #ff1c1c;
+}
+
 .link-holder a {
     text-decoration: none;
     border-radius: 5px;
@@ -74,12 +96,13 @@ header {
 }
 
 .link-holder a:hover {
-    color: #aa6000;
+    color: #8B4513;
 }
 
-.link-holder a.header-link-active{
-    color:  #aa6000;
+.link-holder a.header-link-active {
+    color: #8B4513;
 }
+
 .logo-holder {
     margin-left: 20px;
 }
@@ -95,40 +118,53 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-.modal-nav{
+
+.modal-nav {
     width: 100%;
     transition: 0.3s ease;
 }
-.mobile-menu{
-   display: none;
-   padding: 10px;
-   font-size: 20px;
-   border-radius: 3px;
-   margin-right: 20px;
-   cursor: pointer;
-   background-color: transparent;
+
+.mobile-menu {
+    display: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 3px;
+    margin-right: 20px;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
 }
-.link-holder-parent.nav-open{
+
+.link-holder-parent.nav-open {
     right: 0;
 }
+
 @media (max-width: 600px) {
-    .mobile-menu{display: block;}
+    .mobile-menu {
+        display: block;
+    }
+
     .link-holder {
         flex-direction: column;
         justify-content: center;
         gap: 20px;
-        margin-top: 50px;
+        margin-top: 60px;
     }
-   .close{display: block}
-    .dark-op{
+
+    .close {
+        display: block
+    }
+
+    .dark-op {
         background-color: rgba(0, 0, 0, 0.7);
         position: fixed;
         min-height: 100%;
         top: 0;
         left: 0;
         z-index: 1000;
-    } 
-    .link-holder-parent{
+    }
+
+    .link-holder-parent {
         position: absolute;
         top: 0;
         min-width: 300px;
@@ -136,5 +172,4 @@ header {
         height: 100%;
         right: -350px;
     }
-}
-</style>
+}</style>

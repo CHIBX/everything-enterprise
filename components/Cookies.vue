@@ -36,9 +36,9 @@ function acceptCookie(){
 }
 .cookie-query button{
     padding: 10px;
-    background-color: #b46600;
-    color: #ffffff;
-    border-color: #995700; 
+    background-color: #8B4513;
+    color: #F8F8F8;
+    border-color: #8B4513; 
     font-weight: 600;
     cursor: pointer;
 }

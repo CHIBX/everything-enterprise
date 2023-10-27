@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import designer from '/designer.svg';
-import quality from '/quality.svg';
-import quick_response from '/quick_response.svg';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 </script>
 
 <template>
-    <div class="qualities">
-    <div class="sub-qualities">
-      <img :src="designer" alt="Creative Designers" draggable="false" />
-      <p><strong>Creative Designers</strong></p>
-    </div>
-    <div class="sub-qualities">
-      <img :src="quality" alt="Quality Products" draggable="false" />
-      <p><strong>Quality Products</strong></p>
-    </div>
-    <div class="sub-qualities">
-      <img :src="quick_response" alt="Quick Response" draggable="false" />
-      <p><strong>Quick Response</strong></p>
-    </div>
+  <div class="qualities">
+    <ClientOnly>
+      <div class="sub-qualities">
+        <FontAwesomeIcon :icon="['fas', 'user']" size="3x" />
+        <p><strong>Creative Designers</strong></p>
+      </div>
+      <div class="sub-qualities">
+        <FontAwesomeIcon :icon="['fas', 'award']" size="3x" />
+        <p><strong>Quality Products</strong></p>
+      </div>
+      <div class="sub-qualities">
+        <FontAwesomeIcon :icon="['fas', 'bolt-lightning']" size="3x" />
+        <p><strong>Quick Response</strong></p>
+      </div>
+    </ClientOnly>
   </div>
 </template>
 
@@ -36,25 +36,29 @@ import quick_response from '/quick_response.svg';
   align-items: center;
 }
 
-.qualities img {
+.qualities svg {
   width: 50px;
   height: 50px;
+  color: #8B4513;
   border-radius: 50%;
+  margin-bottom: 10px;
   user-select: none;
 }
 
 @media (max-width: 500px) {
-   .qualities{
-      flex-wrap: wrap;
-      row-gap: 15px;
-   }
-   .sub-qualities{
-       flex-basis: 50%;
-   }
-   .sub-qualities:nth-child(2) {
-       order: -1;
-       flex-basis: 100%;
-   }
+  .qualities {
+    flex-wrap: wrap;
+    row-gap: 15px;
+  }
+
+  .sub-qualities {
+    flex-basis: 50%;
+  }
+
+  .sub-qualities:nth-child(2) {
+    order: -1;
+    flex-basis: 100%;
+  }
 
 }
 </style>
