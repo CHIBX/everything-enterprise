@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import 'vue3-carousel/dist/carousel.css?inline';
 import { Carousel, Slide } from 'vue3-carousel';
 const publicAssetURL = (path: string) => __publicAssetsURL(path);
+useHead({
+    link: [
+        {rel: 'stylesheet', href: publicAssetURL('carousel.css'), fetchpriority: 'high'}
+    ]
+})
 </script>
 
 <template>
     <Carousel :autoplay="7500" :wrap-around="true" :transition="500">
     <slide :index="0">
-        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/background.jpg')})` }">
+        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/background.webp')})` }">
         <div>
             <h2>Welcome to Everything Enterprise</h2>
             <p>Everything Enterprise is your one-stop shop for all things carpentry and interior design. We offer a widerange of products, from handcrafted furniture to custom-made cabinetry.</p>
@@ -15,7 +19,7 @@ const publicAssetURL = (path: string) => __publicAssetsURL(path);
     </div>
     </slide>
     <slide :index="1">
-        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/interior_design.jpg')})` }">
+        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/interior_design.webp')})` }">
         <div>
             <h2>Design Your Home</h2>
             <p>Whether you're looking to update your kitchen, remodel your bathroom, or simply add a touch of style to your home, we have everything you need.</p>
@@ -23,7 +27,7 @@ const publicAssetURL = (path: string) => __publicAssetsURL(path);
     </div>
     </slide>
     <slide :index="2">
-        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/kitchen.jpg')})` }">
+        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/kitchen.webp')})` }">
         <div>
             <h2>Create Your Dream Kitchen</h2>
             <p>Our team of skilled carpenters specializes in designing and creating beautiful, functional kitchens. From custom cabinets to unique countertops, we can bring your dream kitchen to life.</p>

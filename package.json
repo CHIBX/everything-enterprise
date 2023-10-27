@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@nuxt/image-edge": "^1.0.0-28299296.4360928",
+    "@nuxt/image": "^1.0.0",
     "@nuxtjs/robots": "^3.0.0",
     "@vueuse/nuxt": "^10.4.1",
     "nuxt": "^3.8.0",
@@ -18,6 +18,11 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "vue3-carousel": "^0.3.1"
   }
 }

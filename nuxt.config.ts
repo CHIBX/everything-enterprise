@@ -1,5 +1,4 @@
-import { fileURLToPath } from 'node:url'
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from 'node:url';
 export default defineNuxtConfig({
   devtools: {enabled: false},
   router: {
@@ -7,6 +6,9 @@ export default defineNuxtConfig({
       scrollBehaviorType: "smooth",
     }
   },
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
   alias: {
     'styles': fileURLToPath(new URL('./assets/styles', import.meta.url))
   },
@@ -15,13 +17,10 @@ export default defineNuxtConfig({
   },
   modules: [
     '@vueuse/nuxt',
-    '@nuxt/image-edge',
     "@formkit/auto-animate/nuxt",
-    "@nuxtjs/robots"
+    "@nuxtjs/robots",
+    "@nuxt/image",
   ],
-  imports: {
-    dirs: ['./composables/**', './utils/**']
-  },
   routeRules: {},
   nitro: {
     compressPublicAssets: {
