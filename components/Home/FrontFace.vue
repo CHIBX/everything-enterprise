@@ -3,11 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 const publicAssetURL = (path: string) => __publicAssetsURL(path);
-useHead({
-    link: [
-        { rel: 'stylesheet', href: publicAssetURL('/styles/carousel.css'), fetchpriority: 'high' }
-    ]
-})
 const modules = [Autoplay];
 </script>
 
