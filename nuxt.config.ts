@@ -20,15 +20,18 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     "@nuxtjs/robots",
     "@nuxt/image",
+    "nuxt-rating"
   ],
-  routeRules: {},
+  routeRules: {
+      "/": { prerender: true },
+      "/contact": { prerender: true },
+      "/gallery": { prerender: true },
+      "/services": { prerender: true },
+  },
   nitro: {
     compressPublicAssets: {
       gzip: true
     }
-  },
-  experimental: {
-    componentIslands: true
   },
   app: {
     head: {
@@ -40,9 +43,6 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0', }
       ],
-      noscript: [
-        { textContent: 'JavaScript is required to use this page!', tagPosition: 'bodyOpen', tagPriority: 1 }
-      ]
     }
   }
 })

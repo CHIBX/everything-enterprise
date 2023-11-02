@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-const href = ref<string>(), link=ref<string>();
 useHead({
   link: [
-    { rel: 'stylesheet', href },
-    // { rel:'stylesheet', href: link}
+    { rel: 'stylesheet', href:  useLazy('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap') },
   ],
   htmlAttrs: {
-    lang: 'en'
+    lang: 'en',
   }
 });
 onMounted(() => {
-  useLazy(href, 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
-  // useLazy(link, 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500..700,0..1,-50..200&display=swap');
+ ;
 })
 function toTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -33,7 +30,7 @@ onMounted(() => {
     <slot />
   </main>
   <PortFooter />
-  <Cookies />
+  <!-- <Cookies /> -->
   <span id="to-top" class="" @click="toTop">
     <ClientOnly>
       <FontAwesomeIcon :icon="['fas', 'arrow-up']" />
@@ -48,8 +45,8 @@ main {
 }
 
 #to-top svg {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
 }
 
 #to-top {
@@ -65,7 +62,7 @@ main {
   color: white;
   cursor: pointer;
   border-radius: 50%;
-  background-color: #8B4513;
+  background-color: #7c3400;
   transition: 0.3s ease;
 }
 </style>

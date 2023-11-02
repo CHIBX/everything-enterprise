@@ -14,14 +14,14 @@ function closeNav() {
     nav.classList.remove('nav-open');
     let EvSignal = new AbortController();
     nav.addEventListener('transitionend', () => { modalFNav.classList.remove('dark-op'); EvSignal.abort(); EvSignal = undefined as any }, { signal: EvSignal.signal });
-    useRouter().beforeEach(() => { EvSignal.abort(); EvSignal = undefined as any });
+    useNuxtApp().$router.afterEach(()=>{})
 }
 </script>
 
 <template>
     <header>
         <div class="flex">
-            <span class="logo-holder"><img src="/Logo.jpg" alt="My Logo" class="my-logo" draggable="false" /></span>
+            <span class="logo-holder"><img src="/images/Logo.jpg" alt="My Logo" class="my-logo" draggable="false" /></span>
             <div class="modal-nav">
                 <div class="link-holder-parent">
                     <span class="material-symbols-outlined close" @click="closeNav"><ClientOnly>
@@ -128,6 +128,7 @@ header {
     display: none;
     padding: 10px 15px;
     font-size: 20px;
+    border: 0.5px ridge black;
     border-radius: 3px;
     margin-right: 20px;
     cursor: pointer;

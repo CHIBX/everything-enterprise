@@ -7,7 +7,8 @@ function closeCookie(){
 }
 function acceptCookie(){
     let date = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-    useCookie('cookieConsent', {default: ()=>'Thank you for visiting our website', expires: date, maxAge: date.valueOf()});
+    let cookie = useCookie('cookieConsent', {expires: date, maxAge: date.valueOf()});
+    cookie.value='Thank you for visiting this website.';
 }
 </script>
 
@@ -28,6 +29,7 @@ function acceptCookie(){
     z-index: 999;
     bottom: 0;
     width: 100%;
+    font-size: 14px;
     background-color: white;
     padding: 10px;
     text-align: center;
@@ -36,9 +38,8 @@ function acceptCookie(){
 }
 .cookie-query button{
     padding: 10px;
-    background-color: #8B4513;
+    background-color: #5f2b03;
     color: #F8F8F8;
-    border-color: #8B4513; 
     font-weight: 600;
     cursor: pointer;
 }

@@ -23,6 +23,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
-    "vue3-carousel": "^0.3.1"
+    "nuxt-rating": "^0.0.15",
+    "swiper": "^11.0.3"
   }
 }
