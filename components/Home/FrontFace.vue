@@ -1,40 +1,50 @@
 <script setup lang="ts">
-import { Carousel, Slide } from 'vue3-carousel';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 const publicAssetURL = (path: string) => __publicAssetsURL(path);
 useHead({
     link: [
-        {rel: 'stylesheet', href: publicAssetURL('carousel.css'), fetchpriority: 'high'}
+        { rel: 'stylesheet', href: publicAssetURL('/styles/carousel.css'), fetchpriority: 'high' }
     ]
 })
+const modules = [Autoplay];
 </script>
 
 <template>
-    <Carousel :autoplay="7500" :wrap-around="true" :transition="500">
-    <slide :index="0">
-        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/background.webp')})` }">
-        <div>
-            <h2>Welcome to Everything Enterprise</h2>
-            <p>Everything Enterprise is your one-stop shop for all things carpentry and interior design. We offer a widerange of products, from handcrafted furniture to custom-made cabinetry.</p>
-        </div>
-    </div>
-    </slide>
-    <slide :index="1">
-        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/interior_design.webp')})` }">
-        <div>
-            <h2>Design Your Home</h2>
-            <p>Whether you're looking to update your kitchen, remodel your bathroom, or simply add a touch of style to your home, we have everything you need.</p>
-        </div>
-    </div>
-    </slide>
-    <slide :index="2">
-        <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/kitchen.webp')})` }">
-        <div>
-            <h2>Create Your Dream Kitchen</h2>
-            <p>Our team of skilled carpenters specializes in designing and creating beautiful, functional kitchens. From custom cabinets to unique countertops, we can bring your dream kitchen to life.</p>
-        </div>
-    </div>
-    </slide>
-   </Carousel>
+        <Swiper :autoplay="{ delay: 5000 }"  :loop="true" :modules="[Autoplay]">
+            <SwiperSlide>
+                <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/images/background.webp')})` }">
+                    <div>
+                        <h2>Welcome to Everything Enterprise</h2>
+                        <p>Everything Enterprise is your one-stop shop for all things carpentry and interior design. We
+                            offer a
+                            widerange of products, from handcrafted furniture to custom-made cabinetry.</p>
+                    </div>
+                </div>
+            </SwiperSlide>
+            <SwiperSlide>
+                <div class="background"
+                    :style="{ backgroundImage: `url(${publicAssetURL('/images/interior_design.webp')})` }">
+                    <div>
+                        <h2>Design Your Home</h2>
+                        <p>Whether you're looking to update your kitchen, remodel your bathroom, or simply add a touch of
+                            style
+                            to your home, we have everything you need.</p>
+                    </div>
+                </div>
+            </SwiperSlide>
+            <SwiperSlide>
+                <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/images/kitchen.webp')})` }">
+                    <div>
+                        <h2>Create Your Dream Kitchen</h2>
+                        <p>Our team of skilled carpenters specializes in designing and creating beautiful, functional
+                            kitchens.
+                            From custom cabinets to unique countertops, we can bring your dream kitchen to life.</p>
+                    </div>
+                </div>
+            </SwiperSlide>
+        </Swiper>
 </template>
 
 <style scoped>
@@ -81,9 +91,9 @@ div.background h1 {
     height: 100%;
     z-index: -2;
 }
-@media (max-width: 400px){
-    .background p{
-       font-size: 14px;   
+
+@media (max-width: 400px) {
+    .background p {
+        font-size: 14px;
     }
-}
-</style>
+}</style>

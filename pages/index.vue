@@ -1,33 +1,52 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-const href = ref<string>(), link = ref<string>();
 useHead({
   link: [
-    { rel: 'stylesheet', href },
-    { rel: 'stylesheet', href: link }
+    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap') },
+    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap') },
+    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Delius&display=swap') },
+    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Agbalumo:wght@400&display=swap') },
   ],
   title: 'Everything Enterprise',
+  meta: [
+    {
+      name: 'description', content: 'Everthing Enterprise',
+    },
+    {
+      name: 'author', content: 'Desmond Asemota'
+    },
+    {
+      name: 'creator', content: 'Chiebidolu Chinaemerem',
+    },
+    {
+      name: 'C.E.O', content: 'Desmond Asemota',
+    },
+    {
+      name: 'keywords', content: 'Everything Enterprise',
+    }
+  ],
 });
 useSeoMeta({
   "twitterImageAlt": "Picture of a nice furniture",
   "twitterCreator": 'Chiebidolu Chinaemerem',
   "twitterSite": "@chiebidolu06",
   "twitterCard": 'summary_large_image',
-  "twitterImage": useRequestURL().origin + __publicAssetsURL('/background.jpg'),
+  "twitterDescription": 'Everything Enterprise is a leading provider of quality carpentry and interior design services. We offer a wide range of products, from handcrafted furniture to custom-made cabinetry.',
+  "twitterImage": useRequestURL().origin + __publicAssetsURL('/background.webp'),
   "twitterTitle": 'Everything Enterprise',
   "author": 'Asemota Desmond',
   "articleTag": ['Everything Enterprise', 'Furniture', 'Carpentry', 'Interior Design', 'Quality Furniture', 'Quality Carpentry', 'Quality Interior Design'],
   "creator": 'Chiebidolu Chinaemerem',
   "description": 'Everything Enterprise is a leading provider of quality carpentry and interior design services. We offer a wide range of products, from handcrafted furniture to custom-made cabinetry.',
   "ogDescription": 'Everything Enterprise is a leading provider of quality carpentry and interior design services. We offer a wide range of products, from handcrafted furniture to custom-made cabinetry.',
-  "ogImage": useRequestURL().origin + __publicAssetsURL('/background.jpg'),
+  "ogImage": useRequestURL().origin + __publicAssetsURL('/background.webp'),
   "ogType": "website",
   "ogTitle": 'Everything Enterprise',
   "ogImageAlt": "Picture of a nice furniture",
   "ogUrl": useRequestURL().origin,
-  "ogSiteName": 'Everything Enterprise',
+  "ogSiteName": 'Everything Enterprise'
 })
-useFavicon(__publicAssetsURL('/Logo.jpg'));
+useFavicon(__publicAssetsURL('images/Logo.jpg'));
 onMounted(() => {
   const { stop, remove } = useObserver(Array.from(document.querySelectorAll('.service')), (entries) => {
     entries.forEach(({ target, isIntersecting }) => {
@@ -40,7 +59,6 @@ onMounted(() => {
       }
     })
   })
-  useLazy(href, 'https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 });
 </script>
 
@@ -99,15 +117,87 @@ onMounted(() => {
   </div>
   <HomeQualities />
   <HomeSpecialties />
+  <div class="yrExp-container">
+      <h1>We have over 15 years of experience</h1>
+      <div class="exp-subtext">We know what it takes to create a space you'll love.</div>
+      <div class="exp-contact">
+        <span>If you want to know more...</span>
+        <NuxtLink to="/contact">Contact Us</NuxtLink>
+      </div>
+  </div>
+  <div class="testimonials-holder">
+    <h1>See What Our Clients Say</h1>
+    <HomeTestimonials />
+  </div>
 </template>
 
 <style scoped>
+.testimonials-holder {
+  margin-top: 50px;
+}
+.testimonials-holder h1{
+  font-family: 'Agbalumo', serif;
+  font-weight: 300;
+  text-align: center;
+  margin: 0 10px;
+}
 .features-wrapper {
   position: relative;
   min-height: 300px;
   margin-bottom: 20px;
 }
+.yrExp-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 300px;
+  background-color: #8B4513;
+  box-shadow: inset 2px 0 80px 1px #5f2b03, inset -2px 0 20px 1px #5f2b03;
+}
 
+.yrExp-container .exp-subtext {
+  font-family: 'Delius', cursive;
+  font-size: 18px;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.yrExp-container h1 {
+  margin: 0 10px;
+  text-align: center;
+  font-family: 'Roboto';
+  font-weight: 700;
+}
+.exp-contact {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.exp-contact span{
+   font-family: Roboto, sans-serif;
+   font-weight: 500;
+   font-size: larger;
+}
+.exp-contact a{
+  text-decoration: none;
+  padding: 15px 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: white;
+  background-color: black;
+  transition: 0.3s ease;
+}
+.exp-contact a:hover{
+  box-shadow: 10px 5px 10px rgb(12, 12, 12);
+}
 .features-wrapper .container {
   position: absolute;
   left: 50%;
@@ -167,7 +257,6 @@ onMounted(() => {
   height: 0;
   border-radius: 50%;
   background-color: white;
-  opacity: 0;
   transition: all 0.3s ease-in;
 }
 
@@ -180,7 +269,6 @@ onMounted(() => {
 .col-sm-4:hover .featured-icon::before {
   width: 100%;
   height: 100%;
-  opacity: 1;
 }
 
 .col-sm-4:hover svg {
@@ -200,4 +288,14 @@ onMounted(() => {
   .features-wrapper .col-sm-4 {
     padding: 30px 15px 20px;
   }
-}</style>
+}
+
+@media (max-width: 400px) {
+  .yrExp-container h1 {
+    font-size: 26px;
+  }
+  .testimonials-holder h1{
+    font-size: 24px;
+  }
+}
+</style>
