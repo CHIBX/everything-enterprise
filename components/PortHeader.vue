@@ -14,7 +14,6 @@ function closeNav() {
     nav.classList.remove('nav-open');
     let EvSignal = new AbortController();
     nav.addEventListener('transitionend', () => { modalFNav.classList.remove('dark-op'); EvSignal.abort(); EvSignal = undefined as any }, { signal: EvSignal.signal });
-    useNuxtApp().$router.afterEach(()=>{})
 }
 </script>
 
