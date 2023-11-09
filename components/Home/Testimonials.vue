@@ -8,7 +8,6 @@ if(import.meta.client){
     slidesPV.value =  (innerWidth > 1000) ? 4: (innerWidth > 768? 3 : (innerWidth > 500? 1.8: 1))
  }
 testimonials.value = (await $fetch('/api/testimonials')).testimonials as [];
-// const modules = [Autoplay];
 </script>
 
 <template>
@@ -22,7 +21,7 @@ testimonials.value = (await $fetch('/api/testimonials')).testimonials as [];
                 </div>
                 <div class="testimonial-content">
                     <p class="testimonial-message">{{ message }}</p>
-                    <NuxtRating :read-only="true" :rating-size="'25px'" :rating-value="rating" />
+                    <strong>({{ rating }})</strong> <NuxtRating :read-only="true" :rating-size="'25px'" :rating-value="rating" />
                     <h3 class="testimonial-name">{{ name }}</h3>
                 </div>
             </div>

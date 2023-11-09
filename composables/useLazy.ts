@@ -4,10 +4,11 @@
     return key;
 }
 
-function useObserver(el:Element[] | Element, callback: IntersectionObserverCallback){
+function useObserver(el:(Element|null)[] | Element, callback: IntersectionObserverCallback){
     const targets = Array.isArray(el) ? el : [el];
     const observer = new IntersectionObserver(callback);
     targets.forEach(target => {
+        if(!target) return;
         observer.observe(target);
     })
     return {
@@ -17,4 +18,14 @@ function useObserver(el:Element[] | Element, callback: IntersectionObserverCallb
     };
 }
 
-export { useObserver, useLazy }
+function numberCounter(ref: Ref<number>, { start=0, end=50, duration=1000 }: {start:number, end:number, duration:number}){
+        let _duration = Math.floor(duration/(end-start));
+        let interval = setInterval(()=>{
+            if(start>=end){
+               clearInterval(interval);
+               return; 
+            }
+            ref.value=(start+=1);
+        }, _duration);
+}
+export { useObserver, useLazy, numberCounter }

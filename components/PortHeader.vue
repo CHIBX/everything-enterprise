@@ -23,9 +23,9 @@ function closeNav() {
             <span class="logo-holder"><img src="/images/Logo.jpg" alt="My Logo" class="my-logo" draggable="false" /></span>
             <div class="modal-nav">
                 <div class="link-holder-parent">
-                    <span class="material-symbols-outlined close" @click="closeNav"><ClientOnly>
-                    <FontAwesomeIcon :icon="['fas', 'xmark']" size="2x" />
-            </ClientOnly></span>
+                    <span class="material-symbols-outlined close" @click="closeNav">
+                    <MyFont :icon="['fas', 'xmark']" size="2x" />
+                    </span>
                     <div class="link-holder">
                         <span
                             v-for="([name, link]) in [['Home', '/'], ['Services', '/services'], ['Contact Us', '/contact'], ['Gallery', '/gallery']]">
@@ -35,9 +35,7 @@ function closeNav() {
                 </div>
             </div>
             <button @click="openNav" class="mobile-menu material-symbols-outlined">
-            <ClientOnly>
-                    <FontAwesomeIcon :icon="['fas', 'bars']" size="1x" />
-            </ClientOnly>
+                    <MyFont :icon="['fas', 'bars']" size="1x" />
             </button>
         </div>
     </header>
