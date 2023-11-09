@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 </script>
 
 <template>
   <div class="qualities">
-    <ClientOnly>
       <div class="sub-qualities">
-        <FontAwesomeIcon :icon="['fas', 'user']" size="3x" />
+        <MyFont :icon="['fas', 'user']" size="3x" />
         <p><strong>Creative Designers</strong></p>
       </div>
       <div class="sub-qualities">
-        <FontAwesomeIcon :icon="['fas', 'award']" size="3x" />
+        <MyFont :icon="['fas', 'award']" size="3x" />
         <p><strong>Quality Products</strong></p>
       </div>
       <div class="sub-qualities">
-        <FontAwesomeIcon :icon="['fas', 'bolt-lightning']" size="3x" />
+        <MyFont :icon="['fas', 'bolt-lightning']" size="3x" />
         <p><strong>Quick Response</strong></p>
       </div>
-    </ClientOnly>
   </div>
 </template>
 

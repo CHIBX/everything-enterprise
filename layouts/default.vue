@@ -32,9 +32,7 @@ onMounted(() => {
   <PortFooter />
   <!-- <Cookies /> -->
   <span id="to-top" class="" @click="toTop">
-    <ClientOnly>
-      <FontAwesomeIcon :icon="['fas', 'arrow-up']" />
-    </ClientOnly>
+      <MyFont :icon="['fas', 'arrow-up']" />
   </span>
 </template>
 

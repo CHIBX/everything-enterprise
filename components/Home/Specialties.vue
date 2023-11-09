@@ -74,9 +74,6 @@
 <style>
 .services {
     position: relative;
-    /* display: grid;
-    grid-auto-flow: row;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 0.7fr)); */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -93,6 +90,7 @@
 .service {
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
     transition: 0.3s ease, opacity calc(0.1s * var(--dif)) cubic-bezier(0.2, 0.14, 0.875, 1) calc(0.1s * var(--dif));
     flex-basis: min(max(90vw, 500px), min(350px, 50%));
 }
@@ -105,16 +103,17 @@
 
 .service:hover {
     transform: scaleY(1.02) translateY(-10px);
-    box-shadow: 0 5px 10px 2px rgba(44, 44, 44, 0.5);
+    box-shadow: 8px 5px 10px 3px rgba(102, 102, 102, 0.5);
 }
 
 .service-body {
-    padding: 20px 10px 10px;
+    padding: 20px 10px 10px 5px;
     border-top: 0.2px solid rgb(207, 207, 207);
 }
 
 .service-body p {
     font-size: 13.5px;
+    letter-spacing: 1px;
 }
 
 .service img {

@@ -1,7 +1,13 @@
 import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-library.add(fas);
+// import { fas } from '@fortawesome/free-solid-svg-icons';
+// library.add(fas);
 
 config.autoAddCss = false;
 
-export default defineNuxtPlugin({})
+export default defineNuxtPlugin(()=>{
+    return {
+        provide: {
+            library
+        },
+    }
+})

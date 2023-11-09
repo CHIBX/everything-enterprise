@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {numberCounter} from '@/composables/useLazy';
+import { faFacebook, faInstagram, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faMagnifyingGlass, faHammer, faStar, faPhone, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft, faBars, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 useHead({
   link: [
     { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap') },
@@ -47,6 +50,7 @@ useSeoMeta({
   "ogSiteName": 'Everything Enterprise'
 })
 useFavicon(__publicAssetsURL('images/Logo.jpg'));
+const el1 = ref(0), el2 = ref(0), el3 = ref(0)
 onMounted(() => {
   const { stop, remove } = useObserver(Array.from(document.querySelectorAll('.service')), (entries) => {
     entries.forEach(({ target, isIntersecting }) => {
@@ -58,8 +62,23 @@ onMounted(() => {
         stop();
       }
     })
-  })
-});
+  });
+  const { stop: stop1 } = useObserver([document.querySelector('.achievement-holder .background')], (entries) => {
+    entries.forEach(({ isIntersecting}) => {
+           if (isIntersecting) {
+             let a = document.querySelectorAll('.achievement-holder .achievement');
+              a.forEach((el) => (el)? el.classList.remove('no-achieve'): null)
+              setTimeout(() => {
+                  numberCounter(el1, {start: 0, end: 500, duration: 1200});
+                  numberCounter(el2, {start: 0, end: 15, duration: 2000});
+                  numberCounter(el3, {start: 0, end: 100, duration: 2000});
+              }, 300);
+              (stop1) ? stop1(): null;
+           }
+      });
+    })
+  });
+  useNuxtApp().$library.add(faMagnifyingGlass, faHammer, faStar, faFacebook, faInstagram, faLinkedin, faWhatsapp, faPhone, faEnvelope, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft, faBars, faXmark, faArrowUp);
 </script>
 
 <template>
@@ -71,9 +90,7 @@ onMounted(() => {
       <div class="col-sm-4">
         <div class="featured-icon-box text-center">
           <div class="featured-icon">
-            <ClientOnly>
-              <FontAwesomeIcon :icon="['fas', 'magnifying-glass']" size="3x" />
-            </ClientOnly>
+              <MyFont :icon="['fas', 'magnifying-glass']" size="3x" />
           </div>
           <div class="featured-title">
             <h3>Who we are</h3>
@@ -86,9 +103,7 @@ onMounted(() => {
       <div class="col-sm-4">
         <div class="featured-icon-box text-center">
           <div class="featured-icon">
-            <ClientOnly>
-              <FontAwesomeIcon :icon="['fas', 'hammer']" size="3x" />
-            </ClientOnly>
+              <MyFont :icon="['fas', 'hammer']" size="3x" />
           </div>
           <div class="featured-title">
             <h3>What we do</h3>
@@ -101,9 +116,7 @@ onMounted(() => {
       <div class="col-sm-4">
         <div class="featured-icon-box text-center">
           <div class="featured-icon">
-            <ClientOnly>
-              <FontAwesomeIcon :icon="['fas', 'star']" size="3x" />
-            </ClientOnly>
+              <MyFont :icon="['fas', 'star']" size="3x" />
           </div>
           <div class="featured-title">
             <h3>Why Choose Us?</h3>
@@ -117,7 +130,7 @@ onMounted(() => {
   </div>
   <HomeQualities />
   <HomeSpecialties />
-  <div class="yrExp-container">
+  <div class="yrExp-container"> 
       <h1>We have over 15 years of experience</h1>
       <div class="exp-subtext">We know what it takes to create a space you'll love.</div>
       <div class="exp-contact">
@@ -125,13 +138,77 @@ onMounted(() => {
         <NuxtLink to="/contact">Contact Us</NuxtLink>
       </div>
   </div>
-  <div class="testimonials-holder">
-    <h1>See What Our Clients Say</h1>
+  <div class="achievement-holder">
+        <h2>Our Achievements</h2>
+        <div class="background">
+          <div class="achieves">
+            <div class="achievement no-achieve" style="--dif: 3;">
+              <div class="achieve-value"><span>{{ el1 }}</span>+</div>
+                  <div class="achieve-title">Finished Projects</div>
+             </div>
+             <div class="achievement no-achieve" style="--dif: 4.5;">
+                 <div class="achieve-value"><span>{{ el2 }}</span>+</div>
+                  <div class="achieve-title">Years of Experience</div>
+             </div>
+             <div class="achievement no-achieve" style="--dif: 5;">
+               <div class="achieve-value" ><span>{{ el3 }}</span>%</div>
+                  <div class="achieve-title">Happy Clients</div>
+             </div>
+        </div>
+      </div>
+      </div>
+      <div class="testimonials-holder">
+        <h1>See What Our Clients Say</h1>
     <HomeTestimonials />
   </div>
 </template>
 
 <style scoped>
+.achievement-holder{
+   margin: 20px 0;
+}
+.achievement-holder h2{
+    font-family: 'Delius', serif;
+    font-weight: 700;
+    text-align: center;
+    margin: 50px 0 20px;
+}
+.achievement-holder .achievement{
+    transition: 0.3s ease calc(0.1s * var(--dif)), opacity calc(0.1s * var(--dif) * 1.5) cubic-bezier(0.2, 0.14, 0.875, 1) calc(0.1s * var(--dif));
+}
+.no-achieve{
+  opacity: 0;
+  transform: translateY(100px);
+}
+.achieves{
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0px 50px;
+  padding: 0 15px;
+  backdrop-filter: saturate(0.8) brightness(0.9);
+}
+.achievement-holder .achieve-value{
+   color: white;
+   font-size: 50px;
+   font-weight: 700;
+   text-align: center;
+}
+.achievement-holder .achieve-title{
+   color: white;
+   font-size: 24px;
+   font-weight: 700;
+   font-stretch: extra-expanded;
+}
+.achievement-holder .background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-image: url('/images/close-up-carpenter-using-circular-saw-tool-cut-wooden-planks-make-furniture-homes.webp');
+}
 .testimonials-holder {
   margin-top: 50px;
 }
@@ -178,7 +255,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 .exp-contact span{
    font-family: Roboto, sans-serif;
@@ -273,6 +350,18 @@ onMounted(() => {
 
 .col-sm-4:hover svg {
   color: #8B4513;
+}
+
+@media (max-width: 500px) {
+  .achievement-holder .achieve-value{
+   font-size: 40px;
+}
+.achievement-holder .achieve-title{
+   font-size: 20px;
+}
+.achievement-holder .background{
+  background-position: 70% 0%;
+}
 }
 
 @media (max-width: 786px) {
