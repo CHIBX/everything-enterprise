@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, EffectCreative } from 'swiper/modules';
 import 'swiper/css';
 const publicAssetURL = (path: string) => __publicAssetsURL(path);
-const modules = [Autoplay];
 </script>
 
 <template>
-        <Swiper :autoplay="{ delay: 5000 }"  :loop="true" :modules="[Autoplay]">
+        <Swiper :autoplay="{ delay: 5000 }" :loop="true" :modules="[Autoplay, EffectCreative]" :creative-effect="{
+        prev: {
+          translate: ['-50%', 0, -1],
+          origin: 'center',
+        },
+        next: {
+          translate: ['100%', 0, 0],
+        }
+       }" :effect="'creative'">
             <SwiperSlide>
                 <div class="background" :style="{ backgroundImage: `url(${publicAssetURL('/images/background.webp')})` }">
                     <div>
@@ -45,8 +52,9 @@ const modules = [Autoplay];
 <style scoped>
 div.background {
     position: relative;
-    height: 100vh;
+    height: calc(100vh - 80px);
     width: 100%;
+    margin-top: 80px;
     font-weight: 1000;
     color: rgb(255, 255, 255);
     font-family: 'Roboto';

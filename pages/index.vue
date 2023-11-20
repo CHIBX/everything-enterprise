@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {numberCounter} from '@/composables/useLazy';
-import { faFacebook, faInstagram, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faMagnifyingGlass, faHammer, faStar, faPhone, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft, faBars, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faHammer, faStar, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 useHead({
   link: [
@@ -35,21 +34,21 @@ useSeoMeta({
   "twitterSite": "@chiebidolu06",
   "twitterCard": 'summary_large_image',
   "twitterDescription": 'Everything Enterprise is a leading provider of quality carpentry and interior design services. We offer a wide range of products, from handcrafted furniture to custom-made cabinetry.',
-  "twitterImage": useRequestURL().origin + __publicAssetsURL('/background.webp'),
+  "twitterImage": useRequestURL().origin + __publicAssetsURL('/images/Logo.webp'),
   "twitterTitle": 'Everything Enterprise',
   "author": 'Asemota Desmond',
   "articleTag": ['Everything Enterprise', 'Furniture', 'Carpentry', 'Interior Design', 'Quality Furniture', 'Quality Carpentry', 'Quality Interior Design'],
   "creator": 'Chiebidolu Chinaemerem',
   "description": 'Everything Enterprise is a leading provider of quality carpentry and interior design services. We offer a wide range of products, from handcrafted furniture to custom-made cabinetry.',
   "ogDescription": 'Everything Enterprise is a leading provider of quality carpentry and interior design services. We offer a wide range of products, from handcrafted furniture to custom-made cabinetry.',
-  "ogImage": useRequestURL().origin + __publicAssetsURL('/background.webp'),
+  "ogImage": useRequestURL().origin + __publicAssetsURL('/images/Logo.webp'),
   "ogType": "website",
   "ogTitle": 'Everything Enterprise',
   "ogImageAlt": "Picture of a nice furniture",
   "ogUrl": useRequestURL().origin,
   "ogSiteName": 'Everything Enterprise'
 })
-useFavicon(__publicAssetsURL('images/Logo.jpg'));
+useFavicon(__publicAssetsURL('/images/Logo.webp'));
 const el1 = ref(0), el2 = ref(0), el3 = ref(0)
 onMounted(() => {
   const { stop, remove } = useObserver(Array.from(document.querySelectorAll('.service')), (entries) => {
@@ -78,7 +77,7 @@ onMounted(() => {
       });
     })
   });
-  useNuxtApp().$library.add(faMagnifyingGlass, faHammer, faStar, faFacebook, faInstagram, faLinkedin, faWhatsapp, faPhone, faEnvelope, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft, faBars, faXmark, faArrowUp);
+  useNuxtApp().$library.add(faMagnifyingGlass, faHammer, faStar, faEnvelope, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft);
 </script>
 
 <template>
@@ -192,13 +191,13 @@ onMounted(() => {
 }
 .achievement-holder .achieve-value{
    color: white;
-   font-size: 50px;
+   font-size: 3.5rem;
    font-weight: 700;
    text-align: center;
 }
 .achievement-holder .achieve-title{
    color: white;
-   font-size: 24px;
+   font-size: 1.5rem;
    font-weight: 700;
    font-stretch: extra-expanded;
 }
@@ -239,7 +238,7 @@ onMounted(() => {
 
 .yrExp-container .exp-subtext {
   font-family: 'Delius', cursive;
-  font-size: 18px;
+  font-size: 1.2rem;
   margin: 0 10px;
   text-align: center;
 }
@@ -249,6 +248,7 @@ onMounted(() => {
   text-align: center;
   font-family: 'Roboto';
   font-weight: 700;
+  font-size: 2.25rem;
 }
 .exp-contact {
   margin-top: 10px;
@@ -294,7 +294,7 @@ onMounted(() => {
 
 .col-sm-4 .featured-desc {
   color: #838383;
-  font-size: 15px;
+  font-size: 1rem;
   padding: 0 5px;
 }
 
@@ -354,10 +354,10 @@ onMounted(() => {
 
 @media (max-width: 500px) {
   .achievement-holder .achieve-value{
-   font-size: 40px;
+   font-size: 2rem;
 }
 .achievement-holder .achieve-title{
-   font-size: 20px;
+   font-size: 1.2em;
 }
 .achievement-holder .background{
   background-position: 70% 0%;

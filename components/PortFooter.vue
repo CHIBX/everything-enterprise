@@ -1,5 +1,28 @@
 <script setup lang="ts">
-
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook, faInstagram, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+useNuxtApp().$library.add(faFacebook, faInstagram, faLinkedin, faWhatsapp, faEnvelope, faPhone);
+const isPopUpVisible = inject<Ref<boolean>>('isPUV'),
+popUpContent=inject<Ref<string>>('pUC');
+const subscriptionStatus=ref('');
+async function suscribeUser(){
+   let input = document.querySelector('#subscription-email');
+   if(!input){return}
+   const reg=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+   isPopUpVisible!.value=true;
+   if(!reg.test((input as HTMLInputElement).value)){showFetchError('Invalid Email Address!');return;}
+   let email = (input as HTMLInputElement).value;
+   let res = await fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email})});
+   showFetchError(res.statusText);
+   console.log(res.status, res.statusText);
+}
+function showFetchError(err:string){
+    subscriptionStatus.value=err;
+    popUpContent!.value=err;
+    setTimeout(() => {if(unref(isPopUpVisible)){isPopUpVisible!.value=false;subscriptionStatus.value='';
+    popUpContent!.value='';}}, 2000)
+}
 </script>
 
 <template>
@@ -7,14 +30,29 @@
         <div class="footer-links">
              <div class="social-links">
                   <h3>Reach Out To Us</h3>
-                  <div><a href="https://www.facebook.com/desmond.asemota.54" target="_blank" rel="noopener noreferrer"><MyFont :icon="['fab', 'facebook']"/> Follow Us</a></div>
-                  <!-- <div><a href="" target="_blank" rel="noopener noreferrer"><MyFont :icon="['fab', 'instagram']" class="shake" /></a></div> -->
-                  <!-- <div><a href="" target="_blank" rel="noopener noreferrer"><MyFont :icon="['fab', 'linkedin']" class="shake" /></a></div> -->
-                  <div><a href="https://api.whatsapp.com/send/?phone=%2B2348023669960&text=Hello.+I+am+interested+in+your+product.&type=phone_number" target="_blank" rel="noopener noreferrer"><MyFont :icon="['fab', 'whatsapp']" class="shake" /> Talk to Us</a></div>
-                  <div><a href="" target="_blank" rel="noopener noreferrer"><MyFont :icon="['far', 'envelope']" class="shake" /> Mail Us</a></div>
-                  <div><a href="tel:+2348023669960" target="_blank" rel="noopener noreferrer"><MyFont :icon="['fas', 'phone']" class="shake" /> Give Us A Call</a></div>
+                  <div><a href="https://www.facebook.com/desmond.asemota.54" target="_blank"><MyFont :icon="['fab', 'facebook']"/> Follow Us</a></div>
+                  <!-- <div><a href="" target="_blank"><MyFont :icon="['fab', 'instagram']" class="shake" /></a></div> -->
+                  <!-- <div><a href="" target="_blank"><MyFont :icon="['fab', 'linkedin']" class="shake" /></a></div> -->
+                  <div><a href="https://api.whatsapp.com/send/?phone=%2B2348093313330&text=Hello.+I+am+interested+in+your+product.&type=phone_number" target="_blank"><MyFont :icon="['fab', 'whatsapp']" class="shake" /> Talk to Us</a></div>
+                  <div><a href="" target="_blank"><MyFont :icon="['far', 'envelope']" class="shake" /> Mail Us</a></div>
+                  <div><a href="tel:+2348023669960" target="_blank"><MyFont :icon="['fas', 'phone']" class="shake" /> Give Us A Call</a></div>
              </div>
-             <div></div>
+             <div class="quick-links">
+                  <h3>Quick Links</h3>
+                  <div><NuxtLink href="/">Home</NuxtLink></div>
+                  <div><NuxtLink href="/about">About Us</NuxtLink></div>
+                  <div><NuxtLink href="/services">Services</NuxtLink></div>
+                  <div><NuxtLink href="/contact">Contact Us</NuxtLink></div>
+                  <div><NuxtLink href="/gallery">Gallery</NuxtLink></div>
+             </div>
+             <div class="newsletter-section">
+                <h3>Newsletter</h3>
+                <div>Subscribe to our newsletter to receive updates on our latest projects.</div>
+                <form method="post">
+                    <div><input type="email" id="subscription-email" required name="email" autocomplete="on" placeholder="Enter Email Address" /><button type="button" @click="suscribeUser" >Subscribe</button></div>
+                    <div class="subscription-status" v-text="subscriptionStatus"></div>
+                </form>
+             </div>
         </div>
         <div class="base-line">
            <span>Copyright 2023 &copy;  <NuxtLink href="/">Everything Enterprise</NuxtLink>.</span> <span>All Rights Reserved</span>
@@ -36,13 +74,51 @@
     .footer-links a:hover{
         text-decoration: underline;
     }
+    .subscription-status{
+        margin-top: 2px;
+        font-size: 12px;
+    }
     .footer-links{
-        display: flex;
-        /* justify-content: space-around; */
-        align-items: center;
+        display: grid;
+        justify-content: space-around;
+        gap: 50px 10px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, auto));
         min-height: 300px;
         padding: 20px 20px;
         font-size: 14px;
+    }
+    .footer-links > div{
+        min-height: 200px;
+        min-width: 250px;
+        flex-basis: calc(100% / 3);
+    }
+    .newsletter-section > div{
+        margin-top: 5px;
+    }
+    form{
+        margin-top: 10px;
+    }
+    form button{
+        display: inline-flex;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 15px 8px;
+        border-radius: 0 3px 3px 0;
+        background-color: rgb(226, 226, 226);
+        font-weight: 700;
+    }
+    form button:hover{
+        color: white;
+        background-color: rgb(156, 72, 7);
+    }
+    form input{
+        border: none;
+        outline: none;
+        min-width: 150px;
+        width: 60%;
+        padding: 15px 10px;
     }
     .created-by{
         padding: 5px 0;
@@ -52,7 +128,7 @@
     .created-by a{
         text-decoration: underline;
     }
-    .social-links{
+    .social-links, .quick-links{
         display: flex;
         flex-direction: column;
         row-gap: 15px;
