@@ -5,66 +5,64 @@
 <template>
     <h2 class="service-head" v-pre><span>What We Specialize In</span></h2>
     <div class="services" v-pre>
-        <div class="service service-shown" style="--dif: 3">
+        <div class="service service-shown" style="--dif: 2">
             <img src="/images/armchair-pillow.webp" alt="Chair with Beautiful Luxury Pillow"
                 title="Chair with Beautiful Luxury Pillow" draggable="false" />
             <div class="service-body">
-                <strong>We do Chairs</strong>
+                <strong>Masterful Chairs for Every Space</strong>
                 <p>We craft beautiful and functional chairs for your home or office, using only the finest materials and
                     construction methods. Our chairs are designed to be comfortable, stylish, and durable. </p>
             </div>
         </div>
-        <div class="service service-shown" style="--dif: 3.5">
-            <img src="/images/empty-wooden-shelves.webp" alt="Empty Wooden Shelves" title="Empty Wooden Shelves"
+        <div class="service service-shown" style="--dif: 2.5">
+            <img src="/images/shelf.webp" alt="Empty Wooden Shelves" title="Empty Wooden Shelves"
                 draggable="false" />
             <div class="service-body">
-                <strong>We do Shelves</strong>
+                <strong>Shelving for Every Space </strong>
                 <p>Our shelves are handcrafted from the finest wood, using traditional carpentry techniques. Each shelf is a
                     unique work of art that will add beauty and functionality to your home. </p>
             </div>
         </div>
-        <div class="service service-shown" style="--dif: 4">
+        <div class="service service-shown" style="--dif: 3">
             <img src="/images/classic-bedroom-hotel-room-with-doubles-bed.webp" alt="Classic Room with Doubles Bed"
                 title="Classic Room with Doubles Bed" draggable="false" />
             <div class="service-body">
-                <strong>We do Beds</strong>
+                <strong>Craft Your Dream Bed with Our Expertise</strong>
                 <p>Our beds are made from the highest quality materials and craftsmanship, and we are committed to providing
                     our customers with the best possible experience. </p>
             </div>
         </div>
-        <div class="service service-shown" style="--dif: 4.5">
+        <div class="service service-shown" style="--dif: 3.5">
             <img src="/images/cupboard.webp" alt="Wooden Cupboard" title="Wooden Cupboard" draggable="false" />
             <div class="service-body">
-                <strong>We do Cupboards</strong>
+                <strong>The Art of Exquisite Cupboard Design</strong>
                 <p>We design and build custom cupboards for kitchens, bathrooms, and bedrooms. Choose from a wide variety of
                     styles and finishes to find the perfect look for your home. </p>
             </div>
         </div>
+        <div class="service service-shown" style="--dif: 4">
+            <img src="/images/table.webp" alt="Interior Design for Table" title="Interior Design for Table" draggable="false" />
+            <div class="service-body">
+                <strong>Crafting Custom Tables to Elevate Your Living Space</strong>
+                <p>At Everything Enterprise, we create custom tables tailored to meet the unique needs of our clients,
+                    providing versatile spaces for meals, work, and relaxation.
+                </p>
+            </div>
+        </div>
         <div class="service service-shown" style="--dif: 5">
-            <img src="/images/table.webp" alt="Interior Design Table" title="Interior Design Table" draggable="false" />
+            <img src="/images/cabinets.webp" alt="Example of a cabinet" title="Example of a cabinet" draggable="false" />
             <div class="service-body">
-                <strong>We do Tables</strong>
+                <strong>Transforming Your Space with Exquisite Cabinets</strong>
                 <p>At Everything Enterprise, we create custom tables tailored to meet the unique needs of our clients,
                     providing versatile spaces for meals, work, and relaxation.
                 </p>
             </div>
         </div>
-        <div class="service service-shown" style="--dif: 5.5">
-            <img src="/images/bookshelves.webp" alt="Interior Design Table" title="Interior Design Table" draggable="false" />
+        <div class="service service-shown" style="--dif: 5">
+            <img src="/images/wardrobe.webp" alt="Example of a Wardrobe" title="Example of a Wardrobe" draggable="false" />
             <div class="service-body">
-                <strong>We do Bookshelves</strong>
-                <p>We specialize in creating
-                    custom-made bookshelves that are both stylish and functional while working with you understanding your needs and preferences to we create a bookshelf that is
-                    perfect for your space and budget.
-                </p>
-            </div>
-        </div>
-        <div class="service service-shown" style="--dif: 6">
-            <img src="/images/cabinets.webp" alt="Interior Design Table" title="Interior Design Table" draggable="false" />
-            <div class="service-body">
-                <strong>We do Cabinets</strong>
-                <p>At Everything Enterprise, we create custom tables tailored to meet the unique needs of our clients,
-                    providing versatile spaces for meals, work, and relaxation.
+                <strong>We Design and Build Dream Wardrobes</strong>
+                <p>Our wardrobes are not only well-made, but they are also stylish and functional. We offer a variety of styles to choose from, including traditional, modern, and contemporary. We believe that everyone should be able to afford a well-made wardrobe
                 </p>
             </div>
         </div>
@@ -99,11 +97,6 @@
     opacity: 0;
     transition: transform 0.5s ease-in;
     transform: translateY(300px);
-}
-
-.service:hover {
-    transform: scaleY(1.02) translateY(-10px);
-    box-shadow: 8px 5px 10px 3px rgba(102, 102, 102, 0.5);
 }
 
 .service-body {

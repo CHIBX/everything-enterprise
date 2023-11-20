@@ -21,10 +21,12 @@
     "ipx": "^2.0.1",
     "nuxt-rating": "^0.0.15",
     "swiper": "^11.0.3",
+    "validator": "^13.11.0",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@types/validator": "^13.11.6",
     "nuxt": "^3.8.1",
     "typescript": "^5.2.2"
   }

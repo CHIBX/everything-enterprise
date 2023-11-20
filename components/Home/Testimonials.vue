@@ -3,76 +3,101 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 const testimonials = ref([]);
-const slidesPV=ref(4);
-if(import.meta.client){
-    slidesPV.value =  (innerWidth > 1000) ? 4: (innerWidth > 768? 3 : (innerWidth > 500? 1.8: 1))
- }
-testimonials.value = (await $fetch('/api/testimonials')).testimonials as [];
+const slidesPV = ref(4);
+if (import.meta.client) {
+    slidesPV.value = (innerWidth > 1000) ? 4 : (innerWidth > 768 ? 3 : (innerWidth > 500 ? 1.8 : 1))
+}
+testimonials.value = (await useFetch('/api/testimonials')).data.value?.testimonials as [] || [];;
 </script>
 
 <template>
     <div class="testimonials-bk">
 
-        <Swiper :autoplay="{ delay: 4000 }" :slides-per-view="slidesPV" :space-between="50" :loop="true" :modules="[Autoplay]">
-          <SwiperSlide v-for="({ message, name, image, rating }) in testimonials">
-            <div class="testimonial">
-                <div class="testimonial-image">
-                    <img :src="image" :alt="`${name}'s Avatar For The Testimonial`" height="100" width="100" />
+        <Swiper :autoplay="{ delay: 4000 }" :slides-per-view="slidesPV" :space-between="50" :loop="true"
+            :modules="[Autoplay]">
+            <SwiperSlide v-for="({ message, name, image, rating }) in testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-base">
+                        <img :src="image" :alt="`${name}'s Avatar For The Testimonial`" height="100" width="100" />
+                    </div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-message">{{ message }}</p>
+                        <div>
+                            <NuxtRating :read-only="true" :rating-size="'25px'" :rating-value="rating" /> <strong>({{ rating
+                            }})</strong>
+                        </div>
+                    </div>
+                    <div class="testimonial-name"><strong>({{ name }})</strong></div>
                 </div>
-                <div class="testimonial-content">
-                    <p class="testimonial-message">{{ message }}</p>
-                    <strong>({{ rating }})</strong> <NuxtRating :read-only="true" :rating-size="'25px'" :rating-value="rating" />
-                    <h3 class="testimonial-name">{{ name }}</h3>
-                </div>
-            </div>
-          </SwiperSlide>   
+            </SwiperSlide>
 
-              <HomeTestimonialsControl />
+            <HomeTestimonialsControl />
         </Swiper>
-
     </div>
 </template>
 
 <style scoped>
 .testimonials-bk {
+    width: 100%;
+    /* display: grid;
+    justify-content: space-around;
+    row-gap: 20px ;
+    align-content: center;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 25%), max(300px, 35%))); */
     background-color: rgb(245, 245, 245);
-    padding: 20px 0;
-    margin-top: 20px;
+    padding: 0 20px;
+    margin: 20px 0 0;
     min-height: 350px;
     user-select: none;
 }
-.testimonial{
+
+.testimonial {
     margin: 0 10px;
-    max-width: 300px;
+    padding: 20px;
 }
-.swiper{
+
+.swiper {
     cursor: grab;
 }
-.swiper-slide{
+
+.swiper-slide {
     display: flex;
     justify-content: center;
 }
+
 .average-rating {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
 }
-.testimonial-message{
-    font-size: 13.5px;
+
+.testimonial-message {
+    font-size: 1em;
     margin: 20px 0 10px;
 }
-.testimonial-content{
+
+.testimonial-content {
     text-align: center;
 }
-.testimonial-image{
+
+.testimonial-name {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.testimonial-base {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    gap: 10px;
 }
-.testimonial-image img{
+
+.testimonial-base img {
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
     object-fit: cover;
 }
-
 </style>

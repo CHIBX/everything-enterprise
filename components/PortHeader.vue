@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+useNuxtApp().$library.add(faBars, faXmark);
 function openNav() {
     const nav = document.querySelector('header .link-holder-parent'),
         modalFNav = document.querySelector('header .modal-nav');
@@ -20,7 +21,7 @@ function closeNav() {
 <template>
     <header>
         <div class="flex">
-            <span class="logo-holder"><img src="/images/Logo.jpg" alt="My Logo" class="my-logo" draggable="false" /></span>
+            <span class="logo-holder"><img src="/images/Logo.webp" alt="My Logo" class="my-logo" draggable="false" height="70" width="70" /></span>
             <div class="modal-nav">
                 <div class="link-holder-parent">
                     <span class="material-symbols-outlined close" @click="closeNav">
@@ -28,7 +29,7 @@ function closeNav() {
                     </span>
                     <div class="link-holder">
                         <span
-                            v-for="([name, link]) in [['Home', '/'], ['Services', '/services'], ['Contact Us', '/contact'], ['Gallery', '/gallery']]">
+                            v-for="([name, link]) in [['Home', '/'], ['About Us', '/about'], ['Services', '/services'], ['Contact Us', '/contact'], ['Gallery', '/gallery']]">
                             <NuxtLink :to="link" exact-active-class="header-link-active">{{ name }}</NuxtLink>
                         </span>
                     </div>
@@ -52,9 +53,7 @@ header {
     z-index: 5;
 }
 
-.my-logo {
-    margin-top: 5px;
-}
+
 
 .link-holder span {
     flex: 0 0 auto;
@@ -107,6 +106,7 @@ header {
 .my-logo {
     width: 70px;
     height: 70px;
+    margin-top: 5px;
     border-radius: 50%;
 }
 
@@ -137,7 +137,7 @@ header {
     right: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 675px) {
     .mobile-menu {
         display: block;
     }
