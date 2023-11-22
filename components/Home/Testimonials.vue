@@ -7,7 +7,8 @@ const slidesPV = ref(4);
 if (import.meta.client) {
     slidesPV.value = (innerWidth > 1000) ? 4 : (innerWidth > 768 ? 3 : (innerWidth > 500 ? 1.8 : 1))
 }
-testimonials.value = (await useFetch('/api/testimonials')).data.value?.testimonials as [] || [];;
+// testimonials.value = (await $fetch('/api/testimonials')).data.value?.testimonials as [] || [];;
+testimonials.value = (await $fetch('/api/testimonials')).testimonials as [] || [];
 </script>
 
 <template>

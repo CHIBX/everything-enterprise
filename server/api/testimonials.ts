@@ -6,9 +6,10 @@ interface Testimonials {
         rating: number
     }>
 } 
-export default defineEventHandler(async (e): Promise<Testimonials>=>{
+export default defineCachedEventHandler(async (e): Promise<Testimonials>=>{
     if(e.node.req.method!=='GET') {return {} as Testimonials}
-    console.log(process.env)
     let a = (await useStorage('assets:server').getItem('testimonials.json')) as Testimonials;
     return a
+}, {
+    maxAge: 1000 * 60 * 60 * 24 * 30 * 12,
 });
