@@ -5,9 +5,6 @@ export default defineNuxtConfig({
       scrollBehaviorType: "smooth",
     }
   },
-  supabase: {
-     redirect: false
-  },
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css'
   ],
