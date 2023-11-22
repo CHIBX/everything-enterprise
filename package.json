@@ -26,8 +26,11 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@nuxtjs/supabase": "^1.1.4",
+    "@types/pg": "^8.10.9",
     "@types/validator": "^13.11.6",
     "nuxt": "^3.8.1",
+    "pg": "^8.11.3",
     "typescript": "^5.2.2"
   }
 }

@@ -3,4 +3,15 @@
         "template",
         "customBlocks"
     ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "everything-enterprise",
+            "database": "newsletter",
+            "username": "postgres"
+        }
+    ],
 }

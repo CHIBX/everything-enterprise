@@ -1,4 +1,3 @@
-import { fileURLToPath } from 'node:url';
 export default defineNuxtConfig({
   devtools: {enabled: false},
   router: {
@@ -6,12 +5,12 @@ export default defineNuxtConfig({
       scrollBehaviorType: "smooth",
     }
   },
+  supabase: {
+     redirect: false
+  },
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css'
   ],
-  alias: {
-    'styles': fileURLToPath(new URL('./assets/styles', import.meta.url))
-  },
   image: {
     provider: 'ipx',
   },
@@ -20,7 +19,7 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     "@nuxtjs/robots",
     "@nuxt/image",
-    "nuxt-rating"
+    "nuxt-rating",
   ],
   routeRules: {
       "/": { prerender: true },
