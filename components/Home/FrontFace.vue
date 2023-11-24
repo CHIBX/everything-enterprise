@@ -51,10 +51,9 @@ const publicAssetURL = (path: string) => __publicAssetsURL(path);
 
 <style scoped>
 div.background {
-    position: relative;
-    height: calc(100vh - 80px);
+    max-height: 800px;
+    height: 100vh;
     width: 100%;
-    margin-top: 80px;
     font-weight: 1000;
     color: rgb(255, 255, 255);
     font-family: 'Roboto';
@@ -81,8 +80,8 @@ div.background p {
     line-height: 28px;
 }
 
-div.background h1 {
-    font-size: 32px;
+div.background h2 {
+    font-size: 1.5em;
     margin: 3px 0 5px;
 }
 

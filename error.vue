@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
-import {faBars, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 useHead({
     link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap' },
@@ -11,19 +11,22 @@ const error = useError() as unknown as NuxtError;
 </script>
 
 <template>
-    <PortHeader />
-    <main>
-        <div v-if="error">
-            <img :src="error.statusCode===404?'/images/404.webp':'/images/carpenter-404.svg'" :alt="error.statusCode+' page'" />
-            <!-- <h1 class="at-404">{{ error.statusCode }}</h1> -->
-            <h1 v-if="error.statusCode === 404">Seems like you got lost</h1>
-            <h1 v-else-if="error.statusCode === 403">Forbidden</h1>
-            <h1 v-else-if="error.statusCode === 500">Internal Server Error</h1>
-            <div>{{ error.message }}</div>
-            <button class="go-back" @click="navigateTo('/', { open: { target: '_self' } })">Take Me Home</button>
-        </div>
-    </main>
-    <PortFooter />
+    <div class="container">
+        <PortHeader />
+        <main>
+            <div v-if="error">
+                <img :src="error.statusCode === 404 ? '/images/404.webp' : '/images/carpenter-404.svg'"
+                    :alt="error.statusCode + ' page'" />
+                <!-- <h1 class="at-404">{{ error.statusCode }}</h1> -->
+                <h1 v-if="error.statusCode === 404">Seems like you got lost</h1>
+                <h1 v-else-if="error.statusCode === 403">Forbidden</h1>
+                <h1 v-else-if="error.statusCode === 500">Internal Server Error</h1>
+                <div>{{ error.message }}</div>
+                <button class="go-back" @click="navigateTo('/', { open: { target: '_self' } })">Take Me Home</button>
+            </div>
+        </main>
+        <PortFooter />
+    </div>
 </template>
 
 <style scoped>
@@ -34,19 +37,14 @@ main {
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: 100%;
 }
 
-img{
+img {
     margin-top: 20px;
     max-width: 200px;
     max-height: 200px;
 }
-/* .at-404 {
-    font-weight: 1000;
-    font-size: 75pt;
-    color: #d67900;
-} */
-
 main>div {
     display: flex;
     justify-content: center;

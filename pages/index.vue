@@ -48,7 +48,6 @@ useSeoMeta({
   "ogUrl": useRequestURL().origin,
   "ogSiteName": 'Everything Enterprise'
 })
-useFavicon(__publicAssetsURL('/images/Logo.webp'));
 const el1 = ref(0), el2 = ref(0), el3 = ref(0)
 onMounted(() => {
   const { stop, remove } = useObserver(Array.from(document.querySelectorAll('.service')), (entries) => {

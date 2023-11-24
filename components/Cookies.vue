@@ -16,8 +16,8 @@ function acceptCookie() {
                 site, you agree to the use of cookies.
             </span>
             <div style="display: flex;gap: 20px;justify-content: center;margin-top: 5px;">
-                <button @click="() => { closeCookie(); acceptCookie()}">Agree To All</button>
-                <button @click="closeCookie">No To All</button>
+                <button @click="() => { closeCookie(); acceptCookie()}">Accept</button>
+                <button @click="closeCookie">Decline</button>
             </div>
         </div>
     </div>
@@ -31,6 +31,8 @@ function acceptCookie() {
     align-items: center;
     z-index: 999;
     bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);

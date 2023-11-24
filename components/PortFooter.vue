@@ -12,10 +12,10 @@ async function suscribeUser(){
    const reg=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
    isPopUpVisible!.value=true;
    if(!reg.test((input as HTMLInputElement).value)){showFetchError('Invalid Email Address!');return;}
-   let email = (input as HTMLInputElement).value;
-   let res = await fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email})});
-   showFetchError(res.statusText);
-   console.log(res.status, res.statusText);
+   return;
+//    let res = await fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email})});
+//    showFetchError(res.statusText);
+//    console.log(res.status, res.statusText);
 }
 function showFetchError(err:string){
     subscriptionStatus.value=err;

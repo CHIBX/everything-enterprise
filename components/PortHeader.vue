@@ -47,13 +47,14 @@ header {
     min-height: 80px;
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
     position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     top: 0;
     width: 100%;
+    max-width: 1802px;
     background-color: white;
     z-index: 5;
 }
-
-
 
 .link-holder span {
     flex: 0 0 auto;
@@ -144,7 +145,8 @@ header {
 
     .link-holder {
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+        height: 100%;
         gap: 20px;
         margin-top: 60px;
     }
@@ -156,7 +158,7 @@ header {
     .dark-op {
         background-color: rgba(0, 0, 0, 0.7);
         position: fixed;
-        min-height: 100%;
+        height: 100dvh;
         top: 0;
         left: 0;
         z-index: 1000;
