@@ -1,4 +1,5 @@
 <script setup lang="ts">
+useFavicon(__publicAssetsURL('/images/Logo.webp'));
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 useNuxtApp().$library.add(faArrowUp);
 useHead({
@@ -39,29 +40,33 @@ const popUpContent=ref(''),
 isPopUpVisible=ref(false);
 provide('isPUV', isPopUpVisible);
 provide('pUC', popUpContent);
-let [parent] = useAutoAnimate();
 </script>
 
 
 <template>
-  <PortHeader />
-  <Transition name="popup">
-     <div v-if="isPopUpVisible" class="popup">{{ popUpContent }}</div>
-  </Transition>
-  <main ref="parent">
-      <slot />
-  </main>
-  <PortFooter />
-<Transition type="animation" :duration="{ enter: 500, leave: 800 }" name="fade" v-if="checkCookie">
+  <div class="container">
+    <PortHeader />
+    <Transition name="popup">
+      <div v-if="isPopUpVisible" class="popup">{{ popUpContent }}</div>
+    </Transition>
+    <main>
+      <slot/>
+    </main>
+    <PortFooter />
+    <Transition type="animation" :duration="{ enter: 500, leave: 800 }" name="fade" v-if="checkCookie">
   <Cookies v-if="showCookie" />
 </Transition>
-  <span id="to-top" class="" @click="toTop">
-      <MyFont :icon="['fas', 'arrow-up']" />
-  </span>
+<span id="to-top" class="" @click="toTop">
+  <MyFont :icon="['fas', 'arrow-up']" />
+</span>
+</div>
 </template>
 
 <style scoped>
-
+main {
+  min-height: calc(100vh - 80px);
+  margin: 80px 0 20px;
+}
 .popup{
   position: fixed;
   z-index: 2;
@@ -113,12 +118,6 @@ let [parent] = useAutoAnimate();
   opacity: 1;
   transform: translateY(0px);
 }
-main {
-  min-height: calc(100vh - 80px);
-  margin-bottom: 20px;
-  width: 100%;
-  margin-inline: auto;
-}
 #to-top svg {
   height: 25px;
   width: 25px;
@@ -153,9 +152,18 @@ main {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
-    transition: 0.3s ease;
+    transition: 0.3s ease-in-out;
 }
 .fade-on {
   opacity: 1 !important;
+}
+#__nuxt{
+  display: flex;
+  justify-content: center; 
+  overflow-x: hidden;
+}
+#__nuxt > div.container{
+  width: 100%;
+  max-width: 1800px;
 }
 </style>

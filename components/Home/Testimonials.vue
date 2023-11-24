@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import  data from '~/assets/testimonials.json';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-const testimonials = ref([]);
+const testimonials = ref<typeof data['testimonials']>([]);
 const slidesPV = ref(4);
 if (import.meta.client) {
     slidesPV.value = (innerWidth > 1000) ? 4 : (innerWidth > 768 ? 3 : (innerWidth > 500 ? 1.8 : 1))
 }
-// testimonials.value = (await $fetch('/api/testimonials')).data.value?.testimonials as [] || [];;
-testimonials.value = (await $fetch('/api/testimonials')).testimonials as [] || [];
+testimonials.value = data.testimonials || [{}];
 </script>
 
 <template>
@@ -24,8 +24,7 @@ testimonials.value = (await $fetch('/api/testimonials')).testimonials as [] || [
                     <div class="testimonial-content">
                         <p class="testimonial-message">{{ message }}</p>
                         <div>
-                            <NuxtRating :read-only="true" :rating-size="'25px'" :rating-value="rating" /> <strong>({{ rating
-                            }})</strong>
+                            <NuxtRating :read-only="true" :rating-size="'25px'" :rating-value="rating" /> <strong>({{ rating }} / 5)</strong>
                         </div>
                     </div>
                     <div class="testimonial-name"><strong>({{ name }})</strong></div>
