@@ -16,13 +16,14 @@ const [parent] = useAutoAnimate();
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px 20px;
-    flex-shrink: 0;
+    margin-top: 20px;
 }
 .gallery-flex :deep(img){
     max-width: 100%;
 }
-.gallery-flex > :deep(div){
+.gallery-flex > :deep(.gallery-image){
     max-width: 300px;
     height: 300px;
+    flex-shrink: 0;
 }
 </style>

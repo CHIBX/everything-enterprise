@@ -27,7 +27,7 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: {
       gzip: true
-    }
+    },
   },
   app: {
     head: {

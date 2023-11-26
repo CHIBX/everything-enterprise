@@ -1,38 +1,37 @@
-
-import { writeFile } from "node:fs/promises";
-import { galleryURL as url } from "../utils/utils";
+import storage from "../utils/createGallery";
 import type { NodeEventContext } from "h3";
 import type { GalleryFileDetails } from "~/utils/types";
 import formidable from "formidable";
 export default defineEventHandler(async (event) => {
-  let {files: body} = await readBody<{files:GalleryFileDetails[]}>(event);
+  let { files: body } = await readBody<{ files: GalleryFileDetails[] }>(event);
   const error = createError({
     statusCode: 500,
     statusMessage: "There was an error while uploading your image.",
   });
-  let prm =[];
-  body=body ? body : [];
-  for(const file of body) {
-    prm.push(write(file));
+  body = body ? body : [];
+  for (const file of body) {
+    await write(file);
   }
-  await Promise.all(prm).catch((e) => {throw error});
-  await event.respondWith(new Response(null, { status: 200, statusText: 'Success' }));
+  await event.respondWith(
+    new Response(null, { status: 200, statusText: "Success" })
+  );
   // let data = await parseMultpartData("chair", event.node.req).catch((e) => {
   //   throw error;
   // });
   // console.log(data);
 });
 
-function write(file: GalleryFileDetails) {
-  return new Promise<void>((resolve, reject) => {
-    let buf = new Uint8Array(file.data);
-    writeFile(`${url}/${file.name}-${file.type}.${file.ext}`, buf, "utf-8").then(resolve).catch(reject);
-  });
+async function write(file: GalleryFileDetails) {
+  let buf = new Uint8Array(file.data);
+  await storage.setItemRaw(
+    `./${file.name}-${file.type}.${file.ext}`,
+    buf
+  );
 }
-
 
 function parseMultpartData(type: string, req: NodeEventContext["req"]) {
   return new Promise<unknown>(async (resolve, reject) => {
+    let url = '';
     formidable({
       keepExtensions: !0,
       maxFileSize: 200 * 1024 * 1024,

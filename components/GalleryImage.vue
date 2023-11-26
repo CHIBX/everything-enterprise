@@ -19,7 +19,7 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div>
+    <div class="gallery-image">
        <img ref="img" :alt="image" />
     </div>
 </template>
