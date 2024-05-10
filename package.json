@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation nuxt dev",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "start": "npx cross-env HOST=0.0.0.0 bun .output\\server\\index.mjs"
