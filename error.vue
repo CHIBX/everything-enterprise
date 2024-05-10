@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app';
-import { faBars, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 useHead({
     link: [
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap' },
     ]
 });
-useNuxtApp().$library.add(faBars, faXmark, faArrowUp);
-const error = useError() as unknown as NuxtError;
+const error = useError();
 </script>
 
 <template>
@@ -21,7 +19,7 @@ const error = useError() as unknown as NuxtError;
                 <h1 v-if="error.statusCode === 404">Seems like you got lost</h1>
                 <h1 v-else-if="error.statusCode === 403">Forbidden</h1>
                 <h1 v-else-if="error.statusCode === 500">Internal Server Error</h1>
-                <div>{{ error.message }}</div>
+                <div>{{ error.statusMessage }}</div>
                 <button class="go-back" @click="navigateTo('/', { open: { target: '_self' } })">Take Me Home</button>
             </div>
         </main>
@@ -73,6 +71,6 @@ main>div {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 </style>

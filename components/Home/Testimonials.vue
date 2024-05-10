@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import  data from '~/assets/testimonials.json';
+import data from '~/assets/testimonials.json';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
 const testimonials = ref<typeof data['testimonials']>([]);
 const slidesPV = ref(4);
 if (import.meta.client) {

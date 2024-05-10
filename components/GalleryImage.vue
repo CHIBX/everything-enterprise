@@ -1,29 +1,25 @@
 <script setup lang="ts">
-import type { GalleryData } from '@/utils/types';
-const urlContainer = inject<Ref<Map<string, string>>>('objectUrl');
-const img = ref<HTMLImageElement>();
-const props = defineProps<GalleryData[number]>();
-onMounted(()=>{
-    let blob = new Blob([new Uint8Array(props.buffer)], {type: 'image/jpeg'});
-    console.log(props.type)
-    let map =unref(urlContainer);
-    if(!map?.has(props.image)){
-        let url = URL.createObjectURL(blob);
-        img.value!.src=url;
-        map?.set(props.image, url);
-    }
-    else{
-        img.value!.src=map.get(props.image)||'';
-    }
-})
+import PrimeImage from 'primevue/image';
+defineProps<{
+    path: string;
+}>();
+const emit=defineEmits<{
+    (e: 'open'): void
+}>()
 </script>
 
 <template>
-    <div class="gallery-image">
-       <img ref="img" :alt="image" />
+    <div class="gallery-image overflow-hidden">
+        <PrimeImage class="cursor-pointer w-full h-full aspect-square object-fill transform hover:scale-105" :preview="false" :src="path" @click="()=>emit('open')">
+            <template #indicatoricon>
+                <MyIcon name="uil:search" />
+            </template>
+        </PrimeImage>
     </div>
 </template>
 
 <style scoped>
-
+.gallery-image {
+    
+}
 </style>

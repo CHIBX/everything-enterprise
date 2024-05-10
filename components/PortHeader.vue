@@ -1,31 +1,70 @@
 <script setup lang="ts">
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-useNuxtApp().$library.add(faBars, faXmark);
+let isMenuOpen = false;
+const { currentRoute } = useRouter();
 function openNav() {
     const nav = document.querySelector('header .link-holder-parent'),
         modalFNav = document.querySelector('header .modal-nav');
     if (!nav || !modalFNav) return;
     modalFNav.classList.add('dark-op');
-    nav.classList.add('nav-open');
+    nav.animate([{ right: '-300px' }, { right: '0px' }], {
+        duration: 300,
+        fill: 'both',
+        easing: 'ease-in-out'
+    }).onfinish = () => {
+        isMenuOpen = true;
+    }
 }
 function closeNav() {
     const nav = document.querySelector('header .link-holder-parent'),
         modalFNav = document.querySelector('header .modal-nav');
     if (!nav || !modalFNav) return;
-    nav.classList.remove('nav-open');
-    let EvSignal = new AbortController();
-    nav.addEventListener('transitionend', () => { modalFNav.classList.remove('dark-op'); EvSignal.abort(); EvSignal = undefined as any }, { signal: EvSignal.signal });
+    let animation = nav.animate([{ right: '0px' }, { right: '-300px' }], {
+        duration: 300,
+        fill: 'both',
+        easing: 'ease-in-out'
+    });
+    animation.onfinish = () => {
+        modalFNav.classList.remove('dark-op');
+        isMenuOpen = false;
+    }
 }
+
+const menu = ref(null);
+onClickOutside(menu, () => {
+    if (innerWidth < 675 && isMenuOpen) {
+        closeNav();
+    }
+});
+onBeforeUnmount(watch(currentRoute, () => {
+    if (isMenuOpen) {
+        requestIdleCallback(closeNav);
+    }
+}))
 </script>
 
 <template>
     <header>
         <div class="flex">
-            <span class="logo-holder"><img src="/images/Logo.webp" alt="My Logo" class="my-logo" draggable="false" height="70" width="70" /></span>
-            <div class="modal-nav">
-                <div class="link-holder-parent">
-                    <span class="material-symbols-outlined close" @click="closeNav">
-                    <MyFont :icon="['fas', 'xmark']" size="2x" />
+            <span class="ml-5">
+                <PrimeImage alt="Image" :pt="{
+                    toolbar: {
+                        class: 'text-white'
+                    }
+                }" preview>
+                    <template #indicatoricon><span></span></template>
+                    <template #image>
+                        <img src="/images/Logo.webp" class="mt-2 max-w-16 max-h-16 rounded-full" alt="Logo"
+                            draggable="false" height="64" width="64" />
+                    </template>
+                    <template #preview="{ style }">
+                        <img src="/images/Logo.webp" alt="preview" width="300" height="300" />
+                    </template>
+                </PrimeImage>
+            </span>
+            <nav class="modal-nav">
+                <div class="link-holder-parent bg-white" ref="menu">
+                    <span class="close" @click="closeNav">
+                        <MyIcon name="material-symbols:close-small" size="45" />
                     </span>
                     <div class="link-holder">
                         <span
@@ -34,9 +73,9 @@ function closeNav() {
                         </span>
                     </div>
                 </div>
-            </div>
-            <button @click="openNav" class="mobile-menu material-symbols-outlined">
-                    <MyFont :icon="['fas', 'bars']" size="1x" />
+            </nav>
+            <button @click="openNav" class="mobile-menu">
+                <MyIcon name="material-symbols:menu-rounded" />
             </button>
         </div>
     </header>
@@ -61,8 +100,7 @@ header {
 }
 
 .link-holder-parent {
-    flex-basis: 100%;
-    transition: 0.3s ease-in;
+    transition: 0.3s ease;
 }
 
 .link-holder {
@@ -100,17 +138,6 @@ header {
     color: #8B4513;
 }
 
-.logo-holder {
-    margin-left: 20px;
-}
-
-.my-logo {
-    width: 70px;
-    height: 70px;
-    margin-top: 5px;
-    border-radius: 50%;
-}
-
 .flex {
     display: flex;
     justify-content: space-between;
@@ -120,6 +147,15 @@ header {
 .modal-nav {
     width: 100%;
     transition: 0.3s ease;
+}
+
+.modal-nav.dark-op {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .mobile-menu {
@@ -132,10 +168,6 @@ header {
     cursor: pointer;
     user-select: none;
     background-color: transparent;
-}
-
-.link-holder-parent.nav-open {
-    right: 0;
 }
 
 @media (max-width: 675px) {
@@ -155,21 +187,12 @@ header {
         display: block
     }
 
-    .dark-op {
-        background-color: rgba(0, 0, 0, 0.7);
-        position: fixed;
-        height: 100dvh;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-    }
-
     .link-holder-parent {
         position: absolute;
         top: 0;
-        min-width: 300px;
-        background-color: white;
+        width: 300px;
         height: 100%;
-        right: -350px;
+        right: -300px;
     }
-}</style>
+}
+</style>

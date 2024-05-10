@@ -6,7 +6,7 @@
     <h2 class="service-head" v-pre><span>What We Specialize In</span></h2>
     <div class="services" v-pre>
         <div class="service service-shown" style="--dif: 2">
-            <img src="/images/armchair-pillow.webp" alt="Chair with Beautiful Luxury Pillow"
+            <img src="/images/chair.webp" alt="Chair with Beautiful Luxury Pillow"
                 title="Chair with Beautiful Luxury Pillow" draggable="false" />
             <div class="service-body">
                 <strong>Masterful Chairs for Every Space</strong>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="service service-shown" style="--dif: 2.5">
-            <img src="/images/shelf.webp" alt="Empty Wooden Shelves" title="Empty Wooden Shelves"
+            <img src="/images/shelf1.webp" alt="Empty Wooden Shelves" title="Empty Wooden Shelves"
                 draggable="false" />
             <div class="service-body">
                 <strong>Shelving for Every Space </strong>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="service service-shown" style="--dif: 3">
-            <img src="/images/classic-bedroom-hotel-room-with-doubles-bed.webp" alt="Classic Room with Doubles Bed"
+            <img src="/images/bed.webp" alt="Classic Room with Doubles Bed"
                 title="Classic Room with Doubles Bed" draggable="false" />
             <div class="service-body">
                 <strong>Craft Your Dream Bed with Our Expertise</strong>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="service service-shown" style="--dif: 5">
-            <img src="/images/cabinets.webp" alt="Example of a cabinet" title="Example of a cabinet" draggable="false" />
+            <img src="/images/cabinet-3.webp" alt="Example of a cabinet" title="Example of a cabinet" draggable="false" />
             <div class="service-body">
                 <strong>Transforming Your Space with Exquisite Cabinets</strong>
                 <p>At Everything Enterprise, we create custom tables tailored to meet the unique needs of our clients,
@@ -59,10 +59,11 @@
             </div>
         </div>
         <div class="service service-shown" style="--dif: 5">
-            <img src="/images/wardrobe.webp" alt="Example of a Wardrobe" title="Example of a Wardrobe" draggable="false" />
+            <img src="/images/wardrobe1.webp" alt="Example of a Wardrobe" title="Example of a Wardrobe" draggable="false" />
             <div class="service-body">
                 <strong>We Design and Build Dream Wardrobes</strong>
-                <p>Our wardrobes are not only well-made, but they are also stylish and functional. We offer a variety of styles to choose from, including traditional, modern, and contemporary. We believe that everyone should be able to afford a well-made wardrobe
+                <p>Our wardrobes are not only well-made, but they are also stylish and functional. We offer a variety of styles to choose from, including traditional, modern, and contemporary. 
+                    <!-- We believe that everyone should be able to afford a well-made wardrobe -->
                 </p>
             </div>
         </div>
@@ -77,7 +78,7 @@
     align-items: center;
     justify-content: center;
     grid-gap: 15px;
-    margin: 10px 20px 0;
+    margin: 10px 5px 0;
 }
 
 .service-head {
@@ -90,7 +91,7 @@
     flex-direction: column;
     border-radius: 5px;
     transition: 0.3s ease, opacity calc(0.1s * var(--dif)) cubic-bezier(0.2, 0.14, 0.875, 1) calc(0.1s * var(--dif));
-    flex-basis: min(max(90vw, 500px), min(350px, 50%));
+    flex-basis: min(max(90vw, 500px), min(300px, 50%));
 }
 
 .service-shown {
@@ -113,14 +114,15 @@
     min-width: 300px;
     max-width: 100%;
     min-height: 300px;
-    max-height: 300px;
+    height: 100%;
     user-select: none;
     object-fit: cover;
+    object-position: bottom;
 }
 
-@media (max-width: 770px) {
+@media (max-width: 645px) {
     .service{
-        flex-basis: max(80%, 300px);
+        flex-basis: max(75%, 300px);
     }
     .service img {
        min-height: 300px;

@@ -47,5 +47,5 @@ dist
 .output
 .cache
 
-
+public/images/**
 Tasks.txt

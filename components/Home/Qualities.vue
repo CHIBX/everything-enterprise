@@ -4,15 +4,15 @@
 <template>
   <div class="qualities">
       <div class="sub-qualities">
-        <MyFont :icon="['fas', 'user']" size="3x" />
+        <MyIcon name="uil:user" size="40" />
         <p><strong>Creative Designers</strong></p>
       </div>
       <div class="sub-qualities">
-        <MyFont :icon="['fas', 'award']" size="3x" />
+        <MyIcon name="basil:award-outline" size="40" />
         <p><strong>Quality Products</strong></p>
       </div>
       <div class="sub-qualities">
-        <MyFont :icon="['fas', 'bolt-lightning']" size="3x" />
+        <MyIcon name="iconamoon:lightning-1-light" size="40" />
         <p><strong>Quick Response</strong></p>
       </div>
   </div>
@@ -24,7 +24,7 @@
   justify-content: space-around;
   align-items: center;
   padding: 20px 0 30px;
-  background-color: rgba(99, 99, 99, 0.05);
+  background-color: rgba(22, 22, 22, 0.03);
 }
 
 .qualities .sub-qualities {
@@ -33,7 +33,7 @@
   align-items: center;
 }
 
-.qualities svg {
+.qualities :deep(svg) {
   width: 50px;
   height: 50px;
   color: #8B4513;

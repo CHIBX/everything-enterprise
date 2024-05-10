@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, EffectCreative } from 'swiper/modules';
-import 'swiper/css';
 const publicAssetURL = (path: string) => __publicAssetsURL(path);
+
 </script>
 
 <template>
         <Swiper :autoplay="{ delay: 5000 }" :loop="true" :modules="[Autoplay, EffectCreative]" :creative-effect="{
         prev: {
-          translate: ['-50%', 0, -1],
+          translate: ['0%', 2, -1],
           origin: 'center',
         },
         next: {
@@ -56,7 +56,6 @@ div.background {
     width: 100%;
     font-weight: 1000;
     color: rgb(255, 255, 255);
-    font-family: 'Roboto';
     text-align: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -73,7 +72,7 @@ div.background>div {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    backdrop-filter: saturate(2) brightness(0.6);
+    backdrop-filter: saturate(2) brightness(0.5);
 }
 
 div.background p {

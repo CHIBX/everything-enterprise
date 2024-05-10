@@ -1,41 +1,19 @@
 <script setup lang="ts">
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faInstagram, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-useNuxtApp().$library.add(faFacebook, faInstagram, faLinkedin, faWhatsapp, faEnvelope, faPhone);
-const isPopUpVisible = inject<Ref<boolean>>('isPUV'),
-popUpContent=inject<Ref<string>>('pUC');
 const subscriptionStatus=ref('');
-async function suscribeUser(){
-   let input = document.querySelector('#subscription-email');
-   if(!input){return}
-   const reg=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-   isPopUpVisible!.value=true;
-   if(!reg.test((input as HTMLInputElement).value)){showFetchError('Invalid Email Address!');return;}
-   return;
-//    let res = await fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email})});
-//    showFetchError(res.statusText);
-//    console.log(res.status, res.statusText);
-}
-function showFetchError(err:string){
-    subscriptionStatus.value=err;
-    popUpContent!.value=err;
-    setTimeout(() => {if(unref(isPopUpVisible)){isPopUpVisible!.value=false;subscriptionStatus.value='';
-    popUpContent!.value='';}}, 2000)
-}
+async function suscribeUser(){}
 </script>
 
 <template>
     <footer>
-        <div class="footer-links">
+        <nav class="footer-links">
              <div class="social-links">
                   <h3>Reach Out To Us</h3>
-                  <div><a href="https://www.facebook.com/desmond.asemota.54" target="_blank"><MyFont :icon="['fab', 'facebook']"/> Follow Us</a></div>
-                  <!-- <div><a href="" target="_blank"><MyFont :icon="['fab', 'instagram']" class="shake" /></a></div> -->
-                  <!-- <div><a href="" target="_blank"><MyFont :icon="['fab', 'linkedin']" class="shake" /></a></div> -->
-                  <div><a href="https://api.whatsapp.com/send/?phone=%2B2348093313330&text=Hello.+I+am+interested+in+your+product.&type=phone_number" target="_blank"><MyFont :icon="['fab', 'whatsapp']" class="shake" /> Talk to Us</a></div>
-                  <div><a href="" target="_blank"><MyFont :icon="['far', 'envelope']" class="shake" /> Mail Us</a></div>
-                  <div><a href="tel:+2348023669960" target="_blank"><MyFont :icon="['fas', 'phone']" class="shake" /> Give Us A Call</a></div>
+                  <div><a href="https://www.facebook.com/desmond.asemota.54" target="_blank"><MyIcon name="fa:facebook"/> Follow Us</a></div>
+                  <!-- <div><a href="" target="_blank"><MyIcon name="fa:instagram" class="shake" /></a></div> -->
+                  <!-- <div><a href="" target="_blank"><MyIcon name="fa:linkedin" class="shake" /></a></div> -->
+                  <div><a href="https://api.whatsapp.com/send/?phone=%2B2348093313330&text=Hello.+I+am+interested+in+your+product.&type=phone_number" target="_blank"><MyIcon name="fa:whatsapp" class="shake" /> Talk to Us</a></div>
+                  <div><a href="" target="_blank"><MyIcon name="fa:envelope" class="shake" /> Mail Us</a></div>
+                  <div><a href="tel:+2348023669960" target="_blank"><MyIcon name="fa:phone" class="shake" /> Give Us A Call</a></div>
              </div>
              <div class="quick-links">
                   <h3>Quick Links</h3>
@@ -53,7 +31,7 @@ function showFetchError(err:string){
                     <div class="subscription-status" v-text="subscriptionStatus"></div>
                 </form>
              </div>
-        </div>
+        </nav>
         <div class="base-line">
            <span>Copyright 2023 &copy;  <NuxtLink href="/">Everything Enterprise</NuxtLink>.</span> <span>All Rights Reserved</span>
         </div>
@@ -106,7 +84,7 @@ function showFetchError(err:string){
         outline: none;
         padding: 15px 8px;
         border-radius: 0 3px 3px 0;
-        background-color: rgb(226, 226, 226);
+        background-color: rgb(156, 156, 156);
         font-weight: 700;
     }
     form button:hover{
