@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import {numberCounter} from '@/composables/useLazy';
-import { faMagnifyingGlass, faHammer, faStar, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import 'swiper/css';
 useHead({
   link: [
-    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap') },
-    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap') },
-    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Delius&display=swap') },
-    { rel: 'stylesheet', href: useLazy('https://fonts.googleapis.com/css2?family=Agbalumo:wght@400&display=swap') },
+   
   ],
   title: 'Everything Enterprise',
   meta: [
@@ -76,10 +71,10 @@ onMounted(() => {
       });
     })
   });
-  useNuxtApp().$library.add(faMagnifyingGlass, faHammer, faStar, faEnvelope, faUser, faAward, faBoltLightning, faAngleRight, faAngleLeft);
 </script>
 
 <template>
+  <div>
   <div class="fore-face">
     <HomeFrontFace />
   </div>
@@ -88,7 +83,7 @@ onMounted(() => {
       <div class="col-sm-4">
         <div class="featured-icon-box text-center">
           <div class="featured-icon">
-              <MyFont :icon="['fas', 'magnifying-glass']" size="3x" />
+              <MyIcon name="ic:outline-search" size="50" />
           </div>
           <div class="featured-title">
             <h3>Who we are</h3>
@@ -101,7 +96,7 @@ onMounted(() => {
       <div class="col-sm-4">
         <div class="featured-icon-box text-center">
           <div class="featured-icon">
-              <MyFont :icon="['fas', 'hammer']" size="3x" />
+              <MyIcon name="ic:sharp-construction" size="50" />
           </div>
           <div class="featured-title">
             <h3>What we do</h3>
@@ -114,7 +109,7 @@ onMounted(() => {
       <div class="col-sm-4">
         <div class="featured-icon-box text-center">
           <div class="featured-icon">
-              <MyFont :icon="['fas', 'star']" size="3x" />
+              <MyIcon name="ic:round-star" size="50" />
           </div>
           <div class="featured-title">
             <h3>Why Choose Us?</h3>
@@ -159,6 +154,7 @@ onMounted(() => {
         <h1>See What Our Clients Say</h1>
     <HomeTestimonials />
   </div>
+</div>
 </template>
 
 <style scoped>
@@ -336,10 +332,10 @@ onMounted(() => {
   transition: all 0.3s ease-in;
 }
 
-.featured-icon svg {
+.featured-icon :deep(svg) {
   position: relative;
   z-index: 3;
-  transition: all 0.3s ease;
+  transition: all 0.2s linear;
 }
 
 .col-sm-4:hover .featured-icon::before {
@@ -347,7 +343,7 @@ onMounted(() => {
   height: 100%;
 }
 
-.col-sm-4:hover svg {
+.col-sm-4:hover .featured-icon {
   color: #8B4513;
 }
 

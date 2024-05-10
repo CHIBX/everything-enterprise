@@ -4,20 +4,13 @@ const carousel= useSwiper();
 </script>
 
 <template>
-    <div class="testimonial-controls">
-            <button name="arrow-left" style="border-left:  2px solid rgb(0, 0, 0);" @click="()=>carousel.slidePrev()"><MyFont :icon="['fas', 'angle-left']" style="font-size: 20px;"/></button>
-            <button name="arrow-right" style="border-right:  2px solid rgb(0, 0, 0);" @click="()=>carousel.slideNext()"><MyFont :icon="['fas', 'angle-right']" style="font-size: 20px;"/></button>
+    <div class="py-5 flex justify-center items-center gap-10">
+            <button class="border-t-2 border-b-2 border-l-2 border-black p-2" @click="()=>carousel.slidePrev()"><MyIcon name="uil:angle-left-b" size="25" /></button>
+            <button class="border-t-2 border-b-2 border-r-2 border-black p-2" @click="()=>carousel.slideNext()"><MyIcon name="uil:angle-right-b" size="25" /></button>
     </div>
 </template>
 
 <style scoped>
-.testimonial-controls{
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-}
 .testimonial-controls button{
     background-color: transparent;
     cursor: pointer;
