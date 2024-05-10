@@ -10,7 +10,7 @@ function openNav() {
         duration: 300,
         fill: 'both',
         easing: 'ease-in-out'
-    }).onfinish = () => {
+    }).onfinish = () => { 
         isMenuOpen = true;
     }
 }
