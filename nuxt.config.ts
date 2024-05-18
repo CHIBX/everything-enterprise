@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+
 export default defineNuxtConfig({
   devtools: { enabled: false },
   router: {
@@ -7,15 +10,13 @@ export default defineNuxtConfig({
   },
   ssr: true,
   css: [
-    '~/assets/css/main.css',
-    "primevue/resources/themes/lara-light-blue/theme.css"
-],
+    "~/assets/css/main.css",
+    "primevue/resources/themes/lara-light-blue/theme.css",
+  ],
   // image: {
   //   provider: "ipx",
   // },
-  hooks: {
-
-  },
+  hooks: {},
   modules: [
     "@formkit/auto-animate/nuxt",
     "@vueuse/nuxt",
@@ -27,7 +28,7 @@ export default defineNuxtConfig({
     // "@nuxtjs/cloudinary",
   ],
   devServer: {
-     host: '0.0.0.0',
+    host: "0.0.0.0",
   },
   runtimeConfig: {
     cloudinaryCloudName: process.env.NUXT_CLOUDINARY_CLOUD_NAME,
@@ -36,15 +37,15 @@ export default defineNuxtConfig({
   },
   primevue: {
     components: {
-      prefix: 'Prime',
-      include: '*'   
-    }, 
+      prefix: "Prime",
+      include: "*",
+    },
     directives: {
-      include: ['Ripple']
+      include: ["Ripple"],
     },
     options: {
       ripple: true,
-    }
+    },
   },
   nitro: {
     compressPublicAssets: {
@@ -56,7 +57,7 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
-      cssnano: {} 
+      cssnano: {},
     },
   },
   app: {
@@ -75,10 +76,10 @@ export default defineNuxtConfig({
       ],
     },
     pageTransition: {
-      name: 'shift'
+      name: "shift",
     },
     layoutTransition: {
-      name: 'shift'
-    }
+      name: "shift",
+    },
   },
 });

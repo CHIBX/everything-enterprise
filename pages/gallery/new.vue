@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { FetchError } from 'ofetch';
 import { useToast } from 'primevue/usetoast';
 import PrimeToast from 'primevue/toast';
 
@@ -38,9 +39,6 @@ const addToList = () => {
 }
 function deleteList(id: number) {
     upload.value = upload.value.filter((u) => {
-        if (u.id === id) {
-            console.log(u.id, u.type)
-        }
         return u.id !== id;
     });
 }
@@ -54,44 +52,44 @@ async function uploadImages() {
         formData.append(`${u.type}:${i}`, new Blob([uint8], { type: 'image/*' }), u.file.name);
     }
     if (errCount > 0) { toatser.add({ severity: 'info', life: 3000, detail: 'Please select all images' }); return }
-        console.log(formData, formData.get('chairs'));
-        isUploading.value = true;
-        await delay(500);
+    isUploading.value = true;
+    await delay(500);
+    try {
         const res = await $fetch('/api/upload', {
-            method: 'POST', body: formData, onResponse(e) {
-                const error = e.error;
-                if (!error) {
-                    id = 0;
-                    upload.value = [
-                        reactive({
-                            id,
-                            type: '',
-                            file: undefined
-                        })
-                    ];
-                    return;
-                }
-                const failedFileNames = (error as Error).message.split('|');
-                upload.value = upload.value.filter((u) => {
-                    if (!u.file?.name) { return }
-                    return failedFileNames.includes(u.file.name);
-                });
-                toatser.add({ severity: 'error', life: 3000, detail: `Some files failed to upload\n${failedFileNames.map((el) => '-' + el).join('\n')}\nTry again` });
-            }
+            method: 'POST', body: formData
         });
-        await delay(200);
-        isUploading.value = false;
+        id = 0;
+        upload.value = [
+            reactive({
+                id,
+                type: '',
+                file: undefined
+            })
+        ];
+    } catch (e) {
+        const { statusText, status } = e as FetchError;
+        if (status === 427) {
+            const failedFileNames = statusText?.split('|') || [];
+            upload.value = upload.value.filter((u) => {
+                if (!u.file?.name) { return }
+                return failedFileNames.includes(u.file.name);
+            });
+            toatser.add({ severity: 'error', life: 3000, detail: `Some files failed to upload\n${failedFileNames.map((el) => '-' + el).join('\n')}\nTry again` });
+        }
+    }
+    await delay(200);
+    isUploading.value = false;
 }
 async function onCategoryUpdate() {
     isCategoryUpdating.value = true;
     await delay(500);
-    const res = await $fetch('/api/gallerytype', {
-        method: 'POST', body: { type: unref(newCategoryName) }, onResponseError(e) {
-            let response = e.response;
-            let { statusText } = response;
-            toatser.add({ severity: 'error', detail: statusText, life: 3000 });
-        }
-    }).catch(() => { });
+    let res;
+    try {
+        res = await $fetch('/api/gallerytype', { method: 'POST', body: { type: unref(newCategoryName) } });
+    } catch (e) {
+        const { statusText = '' } = e as FetchError;
+        toatser.add({ severity: 'error', detail: statusText, life: 3000 });
+    }
     await delay(200);
     isCategoryUpdating.value = false;
     await delay(200);
@@ -137,18 +135,18 @@ async function onCategoryUpdate() {
                     @click="addToList">
                     <MyIcon name="material-symbols:add-circle-outline-rounded" size="20" /> Add
                 </PrimeButton>
-                <LoadButton :disabled="isUploading" :loading="isUploading" @click="uploadImages" class="py-3 px-3.5 flex gap-2.5 text-white border-none cursor-pointer rounded bg-black"
+                <LoadButton :disabled="isUploading" :loading="isUploading" @click="uploadImages"
+                    class="py-3 px-3.5 flex gap-2.5 text-white border-none cursor-pointer rounded bg-black"
                     type="submit">
                     <MyIcon name="ic:round-cloud-upload" size="22" /> Upload
                 </LoadButton>
             </div>
         </form>
         <PrimeDialog v-model:visible="isDialogVisible" modal :pt="{
-            content: {
-                style: { padding: '10px' }
-            }
-        }" :style="{ minWidth: '300px', width: '90%', maxWidth: '400px' }"
-            >
+                content: {
+                    style: { padding: '10px' }
+                }
+            }" :style="{ minWidth: '300px', width: '90%', maxWidth: '400px' }">
             <template #header>
                 <h2 class="px-3 mt-5 flex justify-end gap-3 font-black">Add New Category</h2>
             </template>
