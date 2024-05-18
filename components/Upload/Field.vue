@@ -8,7 +8,6 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'delete', id: number): void;
 }>();
-// const capitalize = (str:string)=> useCapitalize(str);
 function addFile(e: Event){
     let input = e.target as HTMLInputElement;
     let { files } = input;
@@ -16,6 +15,7 @@ function addFile(e: Event){
     props.upload.file = files[0];
 }
 
+// const capitalize = (str:string)=> useCapitalize(str);
 </script>
 
 <template>

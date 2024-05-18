@@ -1,24 +1,12 @@
-// export const galleryURL = !import.meta.dev ? pathFromPreset() : join(process.cwd(), 'public/image-gallery');
-
-// function pathFromPreset() {
-//     const type = process.env.NOW_REGION;
-//     console.log(process.cwd());
-//     if(!type) {
-//         console.log('node local server')
-//         // return '.output/public/image-gallery';
-//         return join(process.cwd(), '.output/public/image-gallery');
-//     }
-//     else if(type){
-//         console.log('vercel server')
-//         // return '.vercel/output/static/image-gallery';
-//         return join(process.cwd(), '.vercel/output/static/image-gallery');
-//     }
-//     return "./image-gallery";
-// }
 const { cloudinaryCloudName, cloudinaryApiKey, cloudinaryApiSecret } =
   useRuntimeConfig();
 import { v2 } from "cloudinary";
-import type { CacheInvalidators, CloudinaryResource } from "~/types";
+import type {
+  CacheInvalidators,
+  CloudinaryImageInfo,
+  CloudinaryResource,
+  ReturnImageInfo,
+} from "~/types";
 import type { H3Event } from "h3";
 export const cloudFolder = "everything-enterprise";
 v2.config({
@@ -27,9 +15,11 @@ v2.config({
   api_secret: cloudinaryApiSecret,
   secure: true,
 });
-// export const allowedTypes = new Set(['tables', 'chairs', 'cabinets', 'wardrobes', 'cupboards', 'bookshelves', 'beds']);
+
 export const cloudinary = v2;
-export const join = (...args: string[]) => {
+
+/** Join argument to match folder path for cloudinary */
+export const joinImagePath = (...args: string[]) => {
   return [cloudFolder, ...args].join("/");
 };
 
@@ -38,7 +28,7 @@ export const getTypes = defineCachedFunction(
     event: H3Event,
     key: string = "all"
   ): Promise<{ name: string; path: string }[]> => {
-    console.log("getting types");
+    // console.log("getting types");
     const { folders } = ((await cloudinary.api
       .sub_folders(cloudFolder)
       .catch(() => {
@@ -72,28 +62,61 @@ export const getCloudinaryImages = defineCachedFunction(
   async (
     event: H3Event,
     key: string = "",
-    cursor?: string
-  ): Promise<unknown> => {
-    const { resources }: CloudinaryResource = await cloudinary.api
-      .resources({
-        ...(key.length > 0 ? { prefix: key } : null),
-        max_results: 50,
-        next_cursor: cursor,
-      })
-      .catch(() => ({
-        resources: [{}],
-      }));
-    console.log(resources);
-    let result = resources.map(({ secure_url }) => secure_url);
-    if (key) {
-      result = result.filter((str) => str.toLowerCase() === key.toLowerCase());
+    cursor = ""
+  ): Promise<ReturnImageInfo[]> => {
+    key = key.trim();
+
+    try {
+      let { resources }: CloudinaryResource = await cloudinary.api
+        .resources({
+          // ...(key.length > 0 ? { prefix: key } : null),
+          max_results: 50,
+          next_cursor: cursor,
+        })
+        .catch(() => ({
+          resources: [{}],
+        }));
+      if (key) {
+        resources = resources.filter(
+          ({ folder }) => joinImagePath(key) === folder
+        );
+      }
+
+      // console.log(resources);
+
+      let result: ReturnImageInfo[] = resources.map(
+        ({
+          secure_url,
+          url,
+          height,
+          width,
+          folder,
+          public_id,
+        }: CloudinaryImageInfo) => {
+          folder = folder.split("/")[1];
+          return {
+            secure_url,
+            url,
+            height,
+            width,
+            folder,
+            name: public_id.split("/").at(-1) as string,
+          };
+        }
+      );
+      invalidators.shouldGetImages = false;
+      return result;
+    } catch (error) {
+      throw createError({
+        statusCode: 500,
+        statusText: "Error getting image details!",
+      });
     }
-    invalidators.shouldGetImages = false;
-    return result;
   },
   {
     name: "CloudinaryImages",
     maxAge: 7 * 24 * 60 * 60,
+    swr: true,
     shouldInvalidateCache() {
       return invalidators.shouldGetImages;
     },
