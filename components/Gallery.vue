@@ -11,10 +11,10 @@ defineProps<{galleryData: GalleryData}>();
 </script>
 
 <template>
-    <section v-for="(gallery, categories) in galleryData">
+    <section v-for="(gallery, categories, index) in galleryData" class="mb-10 select-none">
         <div class="flex justify-between mb-2.5 pr-4 pl-3 text-pb-700" ><h1 class="capitalize font-extrabold text-2xl">{{ categories }}</h1><NuxtLink :to="`/gallery/${categories}`" class="see-more underline underline-offset-1 inline-flex items-center">See More <MyIcon name="material-symbols:chevron-right-rounded" /></NuxtLink></div>
-        <div class="mt-5"> 
-            <GallerySlide :image="gallery" />
+        <div class="mt-5 select-none"> 
+            <GallerySlide :image="gallery" :index="index" />
         </div>
     </section>
 </template>

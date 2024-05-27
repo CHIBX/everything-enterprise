@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { useImage, type UseAsyncStateReturn } from '@vueuse/core';
 import 'swiper/css';
+import type { WatchStopHandle } from 'vue';
 import type { GalleryData } from '~/types';
-let gallery = ref<GalleryData>({});
 useHead({
   link: [
     { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Nunito&display=swap" }
@@ -29,19 +30,12 @@ useHead({
 const { data, error, pending } = await useFetch('/api/gallery', {
   lazy: true,
   server: false,
-});
-const isPending = debouncedRef(pending, 1000);
-
-let galleryWatcher = watch(pending, () => {
-  if (data.value) {
-    gallery.value = data.value.galleryData;
-    data.value = null;
-    galleryWatcher();
-  }
+  deep: false
 });
 
-const [galleryParent] = useAutoAnimate({easing: 'ease-in-out', duration: 500});
-onUnmounted(galleryWatcher);
+const isPending = debouncedRef(pending, 2000);
+
+const [galleryParent] = useAutoAnimate({ easing: 'ease-in-out', duration: 500 });
 </script>
 
 <template>
@@ -50,12 +44,10 @@ onUnmounted(galleryWatcher);
       <h2>Welcome to our Gallery</h2>
     </div>
     <div v-if="isPending" class="flex justify-center items-center w-full h-full">
-      <MyIcon name="eos-icons:loading" class="text-pb-600" size="150" />
+      <MyIcon name="eos-icons:loading" class="text-pb-600 mt-20" size="150" />
     </div>
-    <div v-else-if="error">
-
-    </div>
-    <LazyGallery v-else :gallery-data="gallery" />
+    <div v-else-if="error"></div>
+    <LazyGallery v-else :gallery-data="data!.galleryData" />
   </div>
 </template>
 

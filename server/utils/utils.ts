@@ -63,23 +63,42 @@ export const getCloudinaryImages = defineCachedFunction(
     event: H3Event,
     key: string = "",
     cursor = ""
-  ): Promise<ReturnImageInfo[]> => {
+  ): Promise<{ result: ReturnImageInfo[]; cursor?: string }> => {
     key = key.trim();
-
+    let resources: CloudinaryResource["resources"];
     try {
-      let { resources }: CloudinaryResource = await cloudinary.api
-        .resources({
-          // ...(key.length > 0 ? { prefix: key } : null),
-          max_results: 50,
-          next_cursor: cursor,
-        })
-        .catch(() => ({
-          resources: [{}],
-        }));
       if (key) {
-        resources = resources.filter(
-          ({ folder }) => joinImagePath(key) === folder
-        );
+        // let { resources: res }: CloudinaryResource = await (
+        //   cloudinary.api.resources_by_asset_folder(joinImagePath(key), {
+        //     // ...(key.length > 0 ? { prefix: key } : null),
+        //     max_results: 50,
+        //     next_cursor: cursor,
+        //   }) as any as Promise<CloudinaryResource>
+        // ).catch((e) => {
+        //   console.log(e);
+        //   return {
+        //     resources: [{}],
+        //   } as CloudinaryResource;
+        // });
+        let { resources: res }: CloudinaryResource = await cloudinary.search.expression(`folder=${joinImagePath(key)}`).max_results(50).execute().catch((e) => {
+          return {
+            resources: [{}],
+          };
+        });
+        // res = res.filter(({ folder }) => joinImagePath(key) === folder);
+        resources = res;
+      } else {
+        let { resources: res }: CloudinaryResource = await cloudinary.api
+          .resources({
+            // ...(key.length > 0 ? { prefix: key } : null),
+            max_results: 200,
+          })
+          .catch((e) => {
+            return {
+              resources: [{}],
+            };
+          });
+        resources = res;
       }
 
       // console.log(resources);
@@ -90,8 +109,8 @@ export const getCloudinaryImages = defineCachedFunction(
           url,
           height,
           width,
-          folder,
-          public_id,
+          folder = "",
+          public_id = "",
         }: CloudinaryImageInfo) => {
           folder = folder.split("/")[1];
           return {
@@ -105,8 +124,11 @@ export const getCloudinaryImages = defineCachedFunction(
         }
       );
       invalidators.shouldGetImages = false;
-      return result;
+      return {
+        result,
+      };
     } catch (error) {
+      console.log(error);
       throw createError({
         statusCode: 500,
         statusText: "Error getting image details!",

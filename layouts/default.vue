@@ -45,7 +45,7 @@ onMounted(() => {
       <slot />
     </main>
     <PortFooter />
-<span id="to-top" :class="{'fade-on': !isTop}" class="cursor-pointer fixed iflex justify-center text-white items-center rounded-full  opacity-0 p-3 bottom-5 right-2.5" @click="toTop">
+<span id="to-top" :class="{'fade-on': !isTop}" class="cursor-pointer fixed iflex justify-center text-white items-center rounded-full  opacity-0 transition-all p-3 bottom-5 right-2.5" @click="toTop">
   <MyIcon name="uil:angle-up" size="30" />
 </span>
 </div>
