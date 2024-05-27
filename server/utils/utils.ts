@@ -63,6 +63,7 @@ export const getCloudinaryImages = defineCachedFunction(
     event: H3Event,
     key: string = "",
     cursor = ""
+<<<<<<< HEAD
   ): Promise<{ result: ReturnImageInfo[]; cursor?: string }> => {
     key = key.trim();
     let resources: CloudinaryResource["resources"];
@@ -99,6 +100,25 @@ export const getCloudinaryImages = defineCachedFunction(
             };
           });
         resources = res;
+=======
+  ): Promise<ReturnImageInfo[]> => {
+    key = key.trim();
+
+    try {
+      let { resources }: CloudinaryResource = await cloudinary.api
+        .resources({
+          // ...(key.length > 0 ? { prefix: key } : null),
+          max_results: 50,
+          next_cursor: cursor,
+        })
+        .catch(() => ({
+          resources: [{}],
+        }));
+      if (key) {
+        resources = resources.filter(
+          ({ folder }) => joinImagePath(key) === folder
+        );
+>>>>>>> a75ba2571e4dd0ae27aabd334c515ecbb99e1e1d
       }
 
       // console.log(resources);
@@ -109,8 +129,13 @@ export const getCloudinaryImages = defineCachedFunction(
           url,
           height,
           width,
+<<<<<<< HEAD
           folder = "",
           public_id = "",
+=======
+          folder,
+          public_id,
+>>>>>>> a75ba2571e4dd0ae27aabd334c515ecbb99e1e1d
         }: CloudinaryImageInfo) => {
           folder = folder.split("/")[1];
           return {
@@ -124,11 +149,16 @@ export const getCloudinaryImages = defineCachedFunction(
         }
       );
       invalidators.shouldGetImages = false;
+<<<<<<< HEAD
       return {
         result,
       };
     } catch (error) {
       console.log(error);
+=======
+      return result;
+    } catch (error) {
+>>>>>>> a75ba2571e4dd0ae27aabd334c515ecbb99e1e1d
       throw createError({
         statusCode: 500,
         statusText: "Error getting image details!",
