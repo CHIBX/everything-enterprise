@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-<<<<<<< HEAD
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, Autoplay, EffectCreative } from 'swiper/modules';
 import type { WatchStopHandle } from 'vue';
@@ -151,37 +150,4 @@ let isPending = debouncedRef(pending, 2000);
 .image:hover .image-eye {
     color: white;
 }
-=======
-const { id } = useRoute().params;
-const { data, error, pending } = useFetch(`/api/gallerytype`);
-let pendWatch = watch(pending, () => {
-    if(!pending.value){
-        pendWatch();
-    }
-    if(error.value){
-        throw createError({
-            statusCode: 500,
-            statusMessage: `Something went wrong on our end.\nPlease try again later.`,
-        })
-    }
-    if(data.value){
-        if(!data.value.types.includes(id.toString().toLowerCase())){
-            throw createError({
-                statusCode: 404,
-                statusMessage: `No result found for category ${id}!`,
-            });
-        }
-    }
-})
-</script>
-
-<template>
-    <div>
-        {{ id }}
-    </div>
-</template>
-
-<style>
-
->>>>>>> a75ba2571e4dd0ae27aabd334c515ecbb99e1e1d
 </style>
