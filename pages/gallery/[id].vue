@@ -59,7 +59,7 @@ let isPending = debouncedRef(pending, 2000);
                     <div class="text-center">
                         <div class="relative"
                         :style="{ height: `${sizeBasedOnDevice}px`, width: `${sizeBasedOnDevice}px` }" >
-                            <Swiper :modules="[Navigation]" :slidesPerView="1"
+                            <Swiper :modules="[Navigation]" :slidesPerView="1" :initialSlide="activeSwiperIndex"
                                 :navigation="{ nextEl: `.b-swiper-next`, prevEl: `.b-swiper-prev` }" :loop="true"
                                 :grabCursor="true" >
 

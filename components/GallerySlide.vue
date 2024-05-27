@@ -19,7 +19,7 @@ if (import.meta.client) {
 }
 
 const [parent] = useAutoAnimate();
-const activeGalleriaIndex = ref(0);
+const activeSwiperIndex = ref(0);
 const canGoFullScreen = ref(false);
 let sizeBasedOnDevice = 300;
 if (import.meta.client) {
@@ -59,6 +59,7 @@ if (import.meta.client) {
     <div class="relative px-2.5">
         <Swiper :space-between="20" :slidesPerView="'auto'" :centeredSlides="true" :modules="[Navigation, Autoplay]"
             :navigation="{ nextEl: `.a-swiper-next-${index}`, prevEl: `.a-swiper-prev-${index}` }" :loop="true"
+            :initialSlide="activeSwiperIndex"
             :autoplay="{ delay: Number((Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000).toString().padStart(4, '0')), pauseOnMouseEnter: true }">
             <SwiperSlide v-for="({ secure_url, url, folder, width, height, name }, index) in image" :key="name"
                 :virtualIndex="name" :style="{ height: `240px`, width: `250px` }">
@@ -67,7 +68,7 @@ if (import.meta.client) {
                         :alt="folder? `${folder} images`: undefined" width="250" height="240" />
                     <MyIcon name="uil:trash-alt" class="trash absolute top-3 right-3" size="30" />
                     <MyIcon name="uil:eye" class="image-eye absolute" size="30"
-                        @click="() => { canGoFullScreen = true; activeGalleriaIndex = index }" />
+                        @click="() => { canGoFullScreen = true; activeSwiperIndex = index }" />
                 </div>
             </SwiperSlide>
         </Swiper>

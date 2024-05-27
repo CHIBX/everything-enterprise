@@ -50,7 +50,6 @@ const [galleryParent] = useAutoAnimate({ easing: 'ease-in-out', duration: 500 })
     </div>
     <div v-else-if="error"></div>
     <LazyGallery v-else :gallery-data="data!.galleryData" />
-    <MyIcon name="eos-icons:loading" class="text-pb-600" size="150" />
   </div>
 
 </template>
